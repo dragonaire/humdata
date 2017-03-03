@@ -1,3 +1,4 @@
+import os.path
 from hdx.configuration import Configuration
 from hdx.data.dataset import Dataset
 import pandas as pd
@@ -10,7 +11,7 @@ def getDataset(dataset_name):
     """
     An HDX Dataset (sub-URL) is a collection of one or more Resources (raw data files).
 
-    Return the dataset and the full path to the first downloaded Resource file.
+    Return the Dataset and its list of Resources.
 
     Example:
       URL: https://feature-data.humdata.org/dataset/lake-chad-basin-fts-appeal-data
@@ -39,16 +40,30 @@ def getDataset(dataset_name):
     resources = dataset.resources
     print(len(resources))
 
-    print('Download first resource in dataset...')
-    res_url, res_path = resources[0].download(constants.DATA_DOWNLOAD_PATH)
-    print('Resource URL %s downloaded to %s' % (res_url, res_path))
-
     print('Done downloading this dataset')
+    return dataset, resources
 
-    return dataset, res_path
+
+def loadResources(resources):
+    """
+    Given a list of HDX Resources, download its Resource files and load them as pandas dataframes.
+    Return a dictionary of Resource filenames and their corresponding loaded pandas dataframes.
+    Note: this assumes all resources are csv files, and calls the function loadResourceFromPath().
+    """
+    print('Load %d resources' % len(resources))
+
+    resource_dfs = {}
+    for resource in resources:
+        resource_url, resource_path = resource.download(constants.DATA_DOWNLOAD_PATH)
+        print('Resource URL %s downloaded to %s' % (resource_url, resource_path))
+        resource_filename = os.path.basename(resource_path)
+        resource_dfs[resource_filename] = loadResourceFromPath(resource_path)
+
+    print('Done downloading this list of resources')
+    return resource_dfs
 
 
-def loadResource(resource_path):
+def loadResourceFromPath(resource_path):
     """
     Given the full path, load a downloaded Resource csv file as a pandas dataframe.
     Drop the first row, which is the HXL metadata tag (often a desription of the column names).
@@ -154,27 +169,31 @@ def run():
     resources = {}
     # Download resources
     print('Download Resources...')
+    num_resources = 0
     for dataset_name in dataset_names:  # TODO: replace with constants.HDX_DATASETS
         resource_path = None
         try:
-            dataset, resource_path = getDataset(dataset_name)
+            dataset, resource_list = getDataset(dataset_name)
             datasets[dataset_name] = dataset
+            resource_dfs = loadResources(resource_list)
+            resources[dataset_name] = resource_dfs
+            num_resources = num_resources + len(resource_dfs)
         except:
-            # If cannot reach HDX API, fall back to using the pre-existing downloaded resource file
-            print('Cannot reach HDX API, falling back to load the pre-existing downloaded resource file for %s' % dataset_name)
-            resource_path = '/'.join([constants.DATA_DOWNLOAD_PATH, constants.resources[dataset_name]])
-        resource = loadResource(resource_path)
-        resources[dataset_name] = resource
+            print('Exception: could not reach the HDX API to download data!')
 
     print('== Num datasets configured: %d ==' % len(dataset_names))
     print('== Num datasets downloaded: %d ==' % len(datasets))
-    print('== Num resources loaded: %d ==' % len(resources))
+    print('== Num resources loaded: %d ==' % num_resources)
+    print('ALL RESOURCES:')
+    print(resources)
 
     # Join resources
     print('Join Resources...')
     res1_cols = {'country': 'country', 'date': 'end_date'}
     res2_cols = {'country': 'Country', 'date': 'Date'}
-    merged_resource = joinResources(resources['lake-chad-basin-fts-appeal-data'], res1_cols, resources['lake-chad-basin-key-figures-january-2017'], res2_cols, 'country', mergeByCountryLatestDate)
+    res1_df = resources['lake-chad-basin-fts-appeal-data']['Lake_Chad_Basin_Appeal_Status_2016-08-31.csv']
+    res2_df = resources['lake-chad-basin-key-figures-january-2017']['LCB_SnapShot_DataSets_24Jan17.xlsx---key_figures.csv']
+    merged_resource = joinResources(res1_df, res1_cols, res2_df, res2_cols, 'country', mergeByCountryLatestDate)
     print('Merged resource from %s and %s:' % (dataset_names[1], dataset_names[2]))
     print(merged_resource.head())
     merged_resource.to_csv('/'.join([constants.DATA_DOWNLOAD_PATH, 'merged_%s_%s.csv' % (dataset_names[1], dataset_names[2])]), index=False)

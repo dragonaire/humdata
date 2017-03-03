@@ -1,0 +1,71 @@
+Date,Country,Admin1,SFI,IDPs,Refugees,SourcesFS
+#date,#country+name,#adm1+name,#affected+sfi,#affected+idp,affected+refugees,#meta+source
+1/31/15,Niger,Diffa,10631,,,http://www.dnpgcca.ne/images/stories/dossier_sap/Rapport%20enquete%20vulnerabilite%20dec%202014%20-%20janvier%202015%20VFFF.pdf
+2/28/15,Niger,Diffa,,,30000,
+3/31/15,Niger,Diffa,,3581,30000,
+4/30/15,Niger,Diffa,,50000,64000,
+5/31/15,Niger,Diffa,339943,40702,64000,http://www.dnpgcca.ne/images/stories/dossier_sap/Rapport%20enquete%20vulnerabilite%20dec%202014%20-%20janvier%202015%20VFFF.pdf
+6/30/15,Niger,Diffa,,40702,64000,
+7/31/15,Niger,Diffa,,66402,64000,
+8/31/15,Niger,Diffa,,66402,64000,
+9/30/15,Niger,Diffa,,66402,64000,
+10/31/15,Niger,Diffa,295125,66402,94152,CH Nov 2015
+11/30/15,Niger,Diffa,295125,66402,92200,CH Nov 2015
+12/31/15,Niger,Diffa,295125,47000,93300,CH Nov 2015
+1/31/15,Chad,lac,,,,
+2/28/15,Chad,lac,,14500,18131,
+3/31/15,Chad,lac,,14500,18131,
+4/30/15,Chad,lac,,19000,13380,
+5/31/15,Chad,lac,,15799,18500,
+6/30/15,Chad,lac,,,,
+7/31/15,Chad,lac,,51387,13700,
+8/31/15,Chad,lac,,51387,13700,
+9/30/15,Chad,lac,,51387,13700,
+10/31/15,Chad,lac,16837,51387,13700,CH Nov 2015
+11/30/15,Chad,lac,16837,51387,13700,CH Nov 2015
+12/31/15,Chad,lac,16837,51387,15800,CH Nov 2015
+1/31/15,Cameroon,Extreme-Nord,,,39000,
+2/28/15,Cameroon,Extreme-Nord,,117739,41286,
+3/31/15,Cameroon,Extreme-Nord,,,66000,
+4/30/15,Cameroon,Extreme-Nord,,96042,74000,
+5/31/15,Cameroon,Extreme-Nord,,81693,74000,
+6/30/15,Cameroon,Extreme-Nord,749000,81117,74000,http://documents.wfp.org/stellent/groups/public/documents/ena/wfp283934.pdf?_ga=1.264901455.1931470213.1478540282
+7/31/15,Cameroon,Extreme-Nord,749000,81700,56400,http://documents.wfp.org/stellent/groups/public/documents/ena/wfp283934.pdf?_ga=1.264901455.1931470213.1478540283
+8/31/15,Cameroon,Extreme-Nord,749000,81700,56400,http://documents.wfp.org/stellent/groups/public/documents/ena/wfp283934.pdf?_ga=1.264901455.1931470213.1478540284
+9/30/15,Cameroon,Extreme-Nord,1417807,81700,56400,http://documents.wfp.org/stellent/groups/public/documents/ena/wfp286314.pdf?_ga=1.264901455.1931470213.1478540282
+10/31/15,Cameroon,Extreme-Nord,1417807,81700,56400,http://documents.wfp.org/stellent/groups/public/documents/ena/wfp286314.pdf?_ga=1.264901455.1931470213.1478540283
+11/30/15,Cameroon,Extreme-Nord,1417807,81700,56400,http://documents.wfp.org/stellent/groups/public/documents/ena/wfp286314.pdf?_ga=1.264901455.1931470213.1478540284
+12/31/15,Cameroon,Extreme-Nord,1417807,124000,65000,http://documents.wfp.org/stellent/groups/public/documents/ena/wfp286314.pdf?_ga=1.264901455.1931470213.1478540285
+2/28/15,Nigeria,Adamawa,,123601,,
+3/31/15,Nigeria,Adamawa,,220159,,
+4/30/15,Nigeria,Adamawa,,220159,,
+5/31/15,Nigeria,Adamawa,,222882,,
+6/30/15,Nigeria,Adamawa,,222882,,
+7/31/15,Nigeria,Adamawa,,113437,,
+8/31/15,Nigeria,Adamawa,,113437,,
+9/30/15,Nigeria,Adamawa,,113437,,
+10/31/15,Nigeria,Adamawa,491721,113437,,CH Nov 2015
+11/30/15,Nigeria,Adamawa,491721,117700,,CH Nov 2015
+12/31/15,Nigeria,Adamawa,491721,122700,,CH Nov 2015
+2/28/15,Nigeria,Borno,,482286,,
+3/31/15,Nigeria,Borno,,672744,,
+4/30/15,Nigeria,Borno,,672714,,
+5/31/15,Nigeria,Borno,,939290,,
+6/30/15,Nigeria,Borno,,939290,,
+7/31/15,Nigeria,Borno,,1002688,,
+8/31/15,Nigeria,Borno,,1002688,,
+9/30/15,Nigeria,Borno,,1650000,,
+10/31/15,Nigeria,Borno,2495141,1650000,,CH Nov 2015
+11/30/15,Nigeria,Borno,2495141,1650000,,CH Nov 2015
+12/31/15,Nigeria,Borno,2495141,1650000,,CH Nov 2015
+2/28/15,Nigeria,Yobe,,125991,,
+3/31/15,Nigeria,Yobe,,135810,,
+4/30/15,Nigeria,Yobe,,135810,,
+5/31/15,Nigeria,Yobe,,139591,,
+6/30/15,Nigeria,Yobe,,139591,,
+7/31/15,Nigeria,Yobe,,139591,,
+8/31/15,Nigeria,Yobe,,139591,,
+9/30/15,Nigeria,Yobe,,195900,,
+10/31/15,Nigeria,Yobe,979948,195900,,CH Nov 2015
+11/30/15,Nigeria,Yobe,979948,195900,,CH Nov 2015
+12/31/15,Nigeria,Yobe,979948,144300,,CH Nov 2015
