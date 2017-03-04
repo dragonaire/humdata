@@ -11,7 +11,8 @@ HDX_DATASETS = [
 
 
 # TODO: don't hardcode this to local computer
-DATA_DOWNLOAD_PATH = '/Users/yang/Documents/clients/onecampaign/project/humdata/resources/data'
+RAW_DATA_PATH = '/Users/yang/Documents/clients/onecampaign/project/humdata/resources/data/raw'
+DERIVED_DATA_PATH = '/Users/yang/Documents/clients/onecampaign/project/humdata/resources/data/derived'
 
 # Map of country codes to country names, ISO 3166-1 alpha-3 (similar to UNDP and NATO standards)
 country_codes = {
@@ -21,7 +22,8 @@ country_codes = {
   'NGR': 'Nigeria'
 }
 
-# Map of Dataset names to downoaded Resource files (via HDX)
+# Map of Dataset names to downoaded Resource files via HD
+# Note: this is just for reference, e.g. to fall back on loading locally i the HDX API is unresponsive
 resources = {
   'lcb-displaced': 'LCB_SnapShot_DataSets_24Jan17.xlsx---key_figures.csv',
   'lake-chad-basin-fts-appeal-data': 'Lake_Chad_Basin_Appeal_Status_2016-08-31.csv', 

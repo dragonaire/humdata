@@ -54,7 +54,7 @@ def loadResources(resources):
 
     resource_dfs = {}
     for resource in resources:
-        resource_url, resource_path = resource.download(constants.DATA_DOWNLOAD_PATH)
+        resource_url, resource_path = resource.download(constants.RAW_DATA_PATH)
         print('Resource URL %s downloaded to %s' % (resource_url, resource_path))
         resource_filename = os.path.basename(resource_path)
         resource_dfs[resource_filename] = loadResourceFromPath(resource_path)
@@ -161,9 +161,7 @@ def mergeByCountryLatestDate(res1, res1_cols, res2, res2_cols, merge_key='countr
 
 
 def run():
-    print('CreateHDX configuration')
-    Configuration.create(hdx_site='feature', hdx_read_only=True)
-
+    print('Download and merge data from HDX')
     dataset_names = ['lcb-displaced', 'lake-chad-basin-fts-appeal-data', 'lake-chad-basin-key-figures-january-2017']
     datasets = {}
     resources = {}
@@ -196,7 +194,7 @@ def run():
     merged_resource = joinResources(res1_df, res1_cols, res2_df, res2_cols, 'country', mergeByCountryLatestDate)
     print('Merged resource from %s and %s:' % (dataset_names[1], dataset_names[2]))
     print(merged_resource.head())
-    merged_resource.to_csv('/'.join([constants.DATA_DOWNLOAD_PATH, 'merged_%s_%s.csv' % (dataset_names[1], dataset_names[2])]), index=False)
+    merged_resource.to_csv('/'.join([constants.RAW_DATA_PATH, 'merged_%s_%s.csv' % (dataset_names[1], dataset_names[2])]), index=False)
 
     print('Done!')
 
