@@ -1,0 +1,5 @@
+Country,People In Need,People Targeted For Assistance,Funding Required,Additional Data
+Cameroon,1600000,767000,191000000,"{'Food Insecure People': 1500000, 'Closed Schools': 144, 'Percent Pop Without Water': 0.45, 'Nonfunctional Health Centers': 21, 'Percent People In Need Who Are Children': 0.67}"
+Chad,345000,233000,121000000,"{'Displaced People': 129000, 'Children Affected': 104000, 'Food Insecure People': 304000, 'Severely Food Insecure People': 157000, 'Severely Malnurished Children Under 5': 22000, 'Children In Need Of Emergency Education': 122000}"
+Niger,340000,325000,139000000,"{'Food Insecure People': 340000, 'People In Need Of Potable Water And Sanitation': 330000, 'People In Need Of Protection': 236000, 'Children In Need Of Protection': 123000, 'People In Need Of Emergency Shelter': 281000, 'Children In Need Of Emergency Education': 137000}"
+Nigeria,8500000,6900000,1050000000,"{'Food Insecure People': 5100000, 'Severely Malnurished Children': 450000, 'Children In Need Of Emergency Education': 2900000}"
