@@ -14,6 +14,10 @@ This is the initial effort to lay the groundwork for this to be possible.
 - [ ] a single data source end to end
 - [ ] a set of lake chad basin data sources end to end (allow for merges/joins)
 
+# Swagger UI
+See the website with interactive API documentation [here](http://127.0.0.1:5000/apidocs/index.html). 
+Note: this is currently local.
+
 # Raw data sources
 See `resources/constants.py` and `resources/data/raw`:
 - [HDX Lake Chad Basin Key Figures January 2017](https://data.humdata.org/dataset/lake-chad-basin-key-figures-january-2017)

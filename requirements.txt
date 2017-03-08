@@ -3,7 +3,8 @@ flask-restplus==0.10.0
 httpie==0.9.9
 pandas==0.16.0
 #flask-restful-swagger==0.19
-flask-restful-swagger-2==0.33
+#flask-restful-swagger-2==0.33
+flasgger==0.5.14
 flask-cors==3.0.2
 pdfminer==20110515
 git+git://github.com/ocha-dap/hdx-python-api.git@v0.82#egg=hdx-python-api
