@@ -1,0 +1,31 @@
+Get funding data for a country
+Call this endpoint to get the latest funding data (in USD) totals for a given country
+---
+tags:
+  - Lake Chad Basin
+parameters:
+  - name: country
+    in: path
+    type: string
+    required: true
+    description: The country name (slugified, i.e. no special characters)
+responses:
+  501:
+    description: No funding data was found for this country
+  200:
+    description: The latest funding data (in USD) for the given country
+    schema:
+      id: funding
+      properties:
+        country:
+          type: string
+          description: The country name
+          default: Chad
+        source:
+          type: string
+          description: The data source name
+          default: UN OCHA Humanitarian Needs Overview 2017
+        data:
+          type: json
+          description: The funding data
+          default: {'Country': 'Chad', 'Requirement 2016': 98205277, 'Funded 2016': 54276412, 'Percent Funded 2016': 0.55000000000000004, 'Requirement 2017': 121261684, 'Tagged For Refugee Response': 16723548.0}

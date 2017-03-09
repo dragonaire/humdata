@@ -1,7 +1,9 @@
 import os.path
+import pandas as pd
+
 from hdx.configuration import Configuration
 from hdx.data.dataset import Dataset
-import pandas as pd
+
 from resources import constants
 
 
@@ -96,6 +98,14 @@ def joinResources(res1, res1_cols, res2, res2_cols, merge_key=None, merge_fn=Non
         res1_mcol = res1_cols[merge_key]
         res2_mcol = res2_cols[merge_key]
 
+    # Preprocess resources (cleaning, etc)
+    # TODO: first check if dtype is string before running .strip()
+    #res1_col_val = res1.sort_values(res1_mcol, ascending=True)[res1_mcol].iloc[0]
+    #res2_col_val = res2.sort_values(res2_mcol, ascending=True)[res2_mcol].iloc[0]
+    #if res1_col_val.istype(str) and res2_col_val.istype(str):  # TODO: fix this to compile
+    #    res1[res1_mcol] = res1[res1_mcol].apply(lambda r: r.strip())
+    #    res2[res2_mcol] = res2[res2_mcol].apply(lambda r: r.strip())
+
     # TODO: throw Exception if a sanity check fails...is this too harsh?
     # how to safely handle ambiguity problems while still bubbling the problem
     # Sanity check Resources:
@@ -139,10 +149,10 @@ def mergeByCountryLatestDate(res1, res1_cols, res2, res2_cols, merge_key='countr
     # Figure out which df has country codes, replace with full country names
     res1_country_sample = res1[res1_cols['country']].iloc[0]
     res2_country_sample = res2[res2_cols['country']].iloc[0]
-    if res1_country_sample in constants.country_codes.keys():
-        res1.replace({res1_cols['country']: constants.country_codes}, inplace=True)
-    elif res2_country_sample in constants.country_codes.keys():
-        res2.replace({res2_cols['country']: constants.country_codes}, inplace=True)
+    if res1_country_sample in constants.COUNTRY_CODES.keys():
+        res1.replace({res1_cols['country']: constants.COUNTRY_CODES}, inplace=True)
+    elif res2_country_sample in constants.COUNTRY_CODES.keys():
+        res2.replace({res2_cols['country']: constants.COUNTRY_CODES}, inplace=True)
     else:
         # Assume columns have the same country values, no need to replace, just merge directly
         pass
@@ -163,6 +173,7 @@ def mergeByCountryLatestDate(res1, res1_cols, res2, res2_cols, merge_key='countr
 def run():
     print('Download and merge data from HDX')
     dataset_names = ['lcb-displaced', 'lake-chad-basin-fts-appeal-data', 'lake-chad-basin-key-figures-january-2017']
+    #dataset_names = ['nigeria-iom-dtm-datasets']
     datasets = {}
     resources = {}
     # Download resources
@@ -186,15 +197,15 @@ def run():
     print(resources)
 
     # Join resources
-    print('Join Resources...')
-    res1_cols = {'country': 'country', 'date': 'end_date'}
-    res2_cols = {'country': 'Country', 'date': 'Date'}
-    res1_df = resources['lake-chad-basin-fts-appeal-data']['Lake_Chad_Basin_Appeal_Status_2016-08-31.csv']
-    res2_df = resources['lake-chad-basin-key-figures-january-2017']['LCB_SnapShot_DataSets_24Jan17.xlsx---key_figures.csv']
-    merged_resource = joinResources(res1_df, res1_cols, res2_df, res2_cols, 'country', mergeByCountryLatestDate)
-    print('Merged resource from %s and %s:' % (dataset_names[1], dataset_names[2]))
-    print(merged_resource.head())
-    merged_resource.to_csv('/'.join([constants.RAW_DATA_PATH, 'merged_%s_%s.csv' % (dataset_names[1], dataset_names[2])]), index=False)
+    #print('Join Resources...')
+    #res1_cols = {'country': 'country', 'date': 'end_date'}
+    #res2_cols = {'country': 'Country', 'date': 'Date'}
+    #res1_df = resources['lake-chad-basin-fts-appeal-data']['Lake_Chad_Basin_Appeal_Status_2016-08-31.csv']
+    #res2_df = resources['lake-chad-basin-key-figures-january-2017']['LCB_SnapShot_DataSets_24Jan17.xlsx---key_figures.csv']
+    #merged_resource = joinResources(res1_df, res1_cols, res2_df, res2_cols, 'country', mergeByCountryLatestDate)
+    #print('Merged resource from %s and %s:' % (dataset_names[1], dataset_names[2]))
+    #print(merged_resource.head())
+    #merged_resource.to_csv('/'.join([constants.RAW_DATA_PATH, 'merged_%s_%s.csv' % (dataset_names[1], dataset_names[2])]), index=False)
 
     print('Done!')
 
