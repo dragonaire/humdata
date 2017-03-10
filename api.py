@@ -65,7 +65,7 @@ def get_funding_totals(country):
     country = country.strip().capitalize()
     funding_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'hno_funding_2016_2017.csv']), encoding='utf-8')
     funding_df = funding_df.where((pd.notnull(funding_df)), None)
-    funding_for_country = funding_df.loc[funding_df['Country'] == country]
+    funding_for_country = funding_df[funding_df['Country'] == country]
     if funding_for_country.empty:
         return 'Error: No funding data was found for this country', 501
     funding_for_country = funding_for_country.iloc[0].to_dict()
@@ -78,14 +78,14 @@ def get_needs_totals(country):
     data_keys = ['HNO']
     country = country.strip().capitalize()
     needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'hno_needs_total_2017.csv']), encoding='utf-8')
-    needs_for_country = needs_df.loc[needs_df['Country'] == country]
+    needs_for_country = needs_df[needs_df['Country'] == country]
     if needs_for_country.empty:
         return 'Error: No needs data was found for this country', 501
     needs_for_country = needs_for_country.iloc[0]
     needs_for_country['Additional Data'] = ast.literal_eval(needs_for_country['Additional Data'])
     needs_for_country = needs_for_country.to_dict()
     needs_iom_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'iom_dtm14_needs_feb2017.csv']), encoding='utf-8')
-    needs_iom_for_country = needs_iom_df.loc[needs_iom_df['Country'] == country]
+    needs_iom_for_country = needs_iom_df[needs_iom_df['Country'] == country]
     if not needs_iom_for_country.empty:
         needs_iom_for_country = needs_iom_for_country.iloc[0]
         needs_iom_for_country['Percent Main Unmet Need'] = ast.literal_eval(needs_iom_for_country['Percent Main Unmet Need'])
@@ -123,10 +123,10 @@ def get_funding_categories(country):
 @swag_from('api_configs/needs_regions_by_country.yml')
 def get_needs_regions(country):
     country = country.strip().capitalize()
-    idp_country_file = 'idp_%s.csv' % country.lower()
     needs_df = None
     try:
-        needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, idp_country_file]), encoding='utf-8')
+        needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'lcb_displaced_2017.csv']), encoding='utf-8')
+        needs_df = needs_df[needs_df['Country'] == country]
     except:
         return 'Error: No regional needs data was found for this country  (no file)', 501
     if needs_df.empty:
@@ -148,7 +148,7 @@ def get_needs_regions(country):
     data = {}
     data['dates'] = dates
     data['values'] = values
-    return jsonify(country=country, source="TODO: Figure out the original source (from HDX)", data=data)
+    return jsonify(country=country, source=constants.DATA_SOURCES['ORS'], data=data)
 
 
 if __name__ == '__main__':

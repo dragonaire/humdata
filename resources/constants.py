@@ -16,7 +16,8 @@ COUNTRY_CODES = {
 # Metadata on original data sources
 DATA_SOURCES = {
   'HNO': 'UN OCHA Humanitarian Needs Overview 2017',
-  'DTM': 'IOM, NEMA, SEMA, Red Cross: Displacement Tracking Matrix, Round XIV Jan 2017'
+  'DTM': 'IOM, NEMA, SEMA, Red Cross: Displacement Tracking Matrix, Round XIV Jan 2017',
+  'ORS': 'Online Reporting System run by UN OCHA ROWCA (via HDX)'
 }
 
 # HDX data
