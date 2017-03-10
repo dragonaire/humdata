@@ -59,9 +59,9 @@ def hello():
     return landing_page
 
 
-@app.route('/totals/funding/<string:country>/', methods=['GET'])
+@app.route('/funding/totals/<string:country>/', methods=['GET'])
 @swag_from('total_funding_by_country.yml')
-def get_funding(country):
+def get_funding_totals(country):
     country = country.strip().capitalize()
     funding_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'hno_funding_2016_2017.csv']), encoding='utf-8')
     funding_df = funding_df.where((pd.notnull(funding_df)), None)
@@ -72,8 +72,8 @@ def get_funding(country):
     return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=funding_for_country)
 
 
-@app.route('/totals/needs/<string:country>/', methods=['GET'])
-def get_needs(country):
+@app.route('/needs/totals/<string:country>/', methods=['GET'])
+def get_needs_totals(country):
     """
     Get needs data for a country
     Call this endpoint to get the people-in-need data totals for a given country
@@ -103,12 +103,13 @@ def get_needs(country):
               description: The data sources
               items:
                 type: string
-              default: ["UN OCHA Humanitarian Needs Overview 2017", "IOM", "ACLED", "UNHCR"]
+              default: ["HNO", "DTM"]
             data:
               type: json
               description: The needs data
               default: {'Country': 'Chad', 'People In Need': 345000, 'People Targeted For Assistance': 233000}
     """
+    data_keys = ['HNO']
     country = country.strip().capitalize()
     needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'hno_needs_total_2017.csv']), encoding='utf-8')
     needs_for_country = needs_df.loc[needs_df['Country'] == country]
@@ -116,15 +117,34 @@ def get_needs(country):
         return 'Error: No needs data was found for this country', 501
     needs_for_country = needs_for_country.iloc[0]
     needs_for_country['Additional Data'] = ast.literal_eval(needs_for_country['Additional Data'])
+    needs_for_country = needs_for_country.to_dict()
+    needs_iom_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'iom_dtm14_needs_feb2017.csv']), encoding='utf-8')
+    needs_iom_for_country = needs_iom_df.loc[needs_iom_df['Country'] == country]
+    if not needs_iom_for_country.empty:
+        needs_iom_for_country = needs_iom_for_country.iloc[0]
+        needs_iom_for_country['Percent Main Unmet Need'] = ast.literal_eval(needs_iom_for_country['Percent Main Unmet Need'])
+        needs_iom_for_country['Percent Main Cause Of Displacement'] = ast.literal_eval(needs_iom_for_country['Percent Main Cause Of Displacement'])
+        needs_iom_for_country['Regional Summary'] = ast.literal_eval(needs_iom_for_country['Regional Summary'])
+        needs_iom_for_country = needs_iom_for_country.to_dict()
+        needs_for_country['Additional Data'].update(needs_iom_for_country)
+        data_keys.append('DTM')
     # TODO: include 'merged_lake-chad-basin-fts-appeal-data_lake-chad-basin-key-figures-january-2017.csv' data
-    # needs_categories_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'merged_lake-chad-basin-fts-appeal-data_lake-chad-basin-key-figures-january-2017.csv']), encoding='utf-8')
-    # needs_categories_for_country = needs_categories_df.loc[needs_categories_df['Country'] == country]
-    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=needs_for_country.to_dict())
+    #needs_categories_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'merged_lake-chad-basin-fts-appeal-data_lake-chad-basin-key-figures-january-2017.csv']), encoding='utf-8')
+    #needs_categories_for_country = needs_categories_df.loc[needs_categories_df['Country'] == country]
+    sources = [constants.DATA_SOURCES[data_key] for data_key in data_keys]
+    return jsonify(country=country, source=sources, data=needs_for_country)
 
 
-# @app.route('/totals/needs/<string:country>/', methods=['GET'])
-# def getNeeds(country):
-
+#@app.route('/needs/regions/<string:country>/', methods=['GET'])
+#def get_needs_regions(country):
+#    country = country.strip().capitalize()
+#    idp_country_file = 'idp_%s.csv' % country.lower()
+#    needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, idp_country_file]), encoding='utf-8')
+#    needs_df['Period'] = pd.to_datetime(needs_df['Period'])
+#    needs_df.sort_values(by='Period',inplace=True)
+#    dates = needs_df['Period'].unique()
+#    regions = needs_df['ReportedLocation'].unique()
+#    # TODO: form a dict for region -> displacement type -> total
 
 if __name__ == '__main__':
     app.run(debug=True)
