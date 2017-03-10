@@ -60,7 +60,7 @@ def hello():
 
 
 @app.route('/funding/totals/<string:country>/', methods=['GET'])
-@swag_from('total_funding_by_country.yml')
+@swag_from('api_configs/funding_totals_by_country.yml')
 def get_funding_totals(country):
     country = country.strip().capitalize()
     funding_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'hno_funding_2016_2017.csv']), encoding='utf-8')
@@ -73,42 +73,8 @@ def get_funding_totals(country):
 
 
 @app.route('/needs/totals/<string:country>/', methods=['GET'])
+@swag_from('api_configs/needs_totals_by_country.yml')
 def get_needs_totals(country):
-    """
-    Get needs data for a country
-    Call this endpoint to get the people-in-need data totals for a given country
-    ---
-    tags:
-      - Lake Chad Basin
-    parameters:
-      - name: country
-        in: path
-        type: string
-        required: true
-        description: The country name (slugified, i.e. no special characters)
-    responses:
-      501:
-        description: No needs data was found for this country
-      200:
-        description: The latest needs data (estimated to the thousands of people) for the given country
-        schema:
-          id: needs
-          properties:
-            country:
-              type: string
-              description: The country name
-              default: Chad
-            source:
-              type: array
-              description: The data sources
-              items:
-                type: string
-              default: ["HNO", "DTM"]
-            data:
-              type: json
-              description: The needs data
-              default: {'Country': 'Chad', 'People In Need': 345000, 'People Targeted For Assistance': 233000}
-    """
     data_keys = ['HNO']
     country = country.strip().capitalize()
     needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'hno_needs_total_2017.csv']), encoding='utf-8')
@@ -135,16 +101,55 @@ def get_needs_totals(country):
     return jsonify(country=country, source=sources, data=needs_for_country)
 
 
-#@app.route('/needs/regions/<string:country>/', methods=['GET'])
-#def get_needs_regions(country):
-#    country = country.strip().capitalize()
-#    idp_country_file = 'idp_%s.csv' % country.lower()
-#    needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, idp_country_file]), encoding='utf-8')
-#    needs_df['Period'] = pd.to_datetime(needs_df['Period'])
-#    needs_df.sort_values(by='Period',inplace=True)
-#    dates = needs_df['Period'].unique()
-#    regions = needs_df['ReportedLocation'].unique()
-#    # TODO: form a dict for region -> displacement type -> total
+@app.route('/funding/categories/<string:country>/', methods=['GET'])
+@swag_from('api_configs/funding_categories_by_country.yml')
+def get_funding_categories(country):
+    country = country.strip().capitalize()
+    hno_funding_file = 'hno_funding_%s_2017.csv' % country.lower()
+    print hno_funding_file
+    funding_df = None
+    try:
+        funding_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, hno_funding_file]), encoding='utf-8')
+    except:
+        return 'Error: No funding data was found for this country (no file)', 501
+    if funding_df.empty:
+        return 'Error: No funding data was found for this country (empty file)', 501
+    funding_df = funding_df.where((pd.notnull(funding_df)), None)
+    funding_dict = funding_df.to_dict(orient='list')
+    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=funding_dict)
+
+
+@app.route('/needs/regions/<string:country>/', methods=['GET'])
+@swag_from('api_configs/needs_regions_by_country.yml')
+def get_needs_regions(country):
+    country = country.strip().capitalize()
+    idp_country_file = 'idp_%s.csv' % country.lower()
+    needs_df = None
+    try:
+        needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, idp_country_file]), encoding='utf-8')
+    except:
+        return 'Error: No regional needs data was found for this country  (no file)', 501
+    if needs_df.empty:
+        return 'Error: No regional needs data was found for this country (empty file)', 501
+    needs_df = needs_df.where((pd.notnull(needs_df)), None)
+    needs_df['PeriodDate'] = pd.to_datetime(needs_df['Period'])
+    needs_df.sort_values(by=['ReportedLocation', 'PeriodDate'], inplace=True)
+    dates = needs_df['Period'].unique().tolist()
+    regions = needs_df['ReportedLocation'].unique().tolist()
+    displacement_types = needs_df['DisplType'].unique().tolist()
+    # Construct a dict for region name -> displacement type -> list of totals where index corresponds to dates list
+    values = {}
+    region_groups = needs_df.groupby('ReportedLocation')
+    for region, group in region_groups:
+        group_df = pd.DataFrame(group).reset_index()
+        idp = group_df[group_df.DisplType == 'idp']['TotalTotal'].tolist()
+        refugee = group_df[group_df.DisplType == 'refugee']['TotalTotal'].tolist()
+        values[region] = {'IDP': idp, 'Refugee': refugee}
+    data = {}
+    data['dates'] = dates
+    data['values'] = values
+    return jsonify(country=country, source="TODO: Figure out the original source (from HDX)", data=data)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,110 @@
+Get funding data by category for a country
+Call this endpoint to get the funding data by category for a given country
+---
+tags:
+  - Lake Chad Basin
+parameters:
+  - name: country
+    in: path
+    type: string
+    required: true
+    description: The country name (slugified, i.e. no special characters)
+responses:
+  501:
+    description: No funding data was found for this country
+  200:
+    description: The latest funding data for the given country
+    schema:
+      id: funding_categories
+      properties:
+        country:
+          type: string
+          description: The country name
+          default: Chad
+        source:
+          type: string
+          description: The data source
+          default: UN OCHA Humanitarian Needs Overview 2017
+        data:
+          type: json
+          description: The funding data by category
+          default: {
+            "Category": [
+              "COORDINATION",
+              "EDUCATION",
+              "EMERGENCY SHELTER AND NFI",
+              "FOOD SECURITY",
+              "HEALTH",
+              "LOGISTICS",
+              "MULTI-SECTOR FOR REFUGEES",
+              "NUTRITION",
+              "PROTECTION",
+              "WATER AND SANITATION",
+              "GRAND TOTAL"
+            ],
+            "Funded 2016": [
+              1004792,
+              4475189,
+              2969462,
+              28382471,
+              5678302,
+              1164457,
+              438817,
+              6312841,
+              1119304,
+              2730778,
+              54276412
+            ],
+            "Percent Funded 2016": [
+              0.67,
+              1.43,
+              0.48,
+              0.85,
+              0.47,
+              0.78,
+              0.03,
+              0.45,
+              0.12,
+              0.72,
+              0.55
+            ],
+            "Requirement 2016": [
+              1500002,
+              3123079,
+              6177670,
+              33422549,
+              12055899,
+              1499164,
+              13124725,
+              14011297,
+              9482225,
+              3808667,
+              98205277
+            ],
+            "Requirement 2017": [
+              nan,
+              6641907,
+              2596800,
+              49034862,
+              10669960,
+              nan,
+              11777881,
+              25301122,
+              11357945,
+              3881207,
+              121261684
+            ],
+            "Tagged For Refugee Response": [
+              nan,
+              nan,
+              nan,
+              1358369,
+              700000,
+              nan,
+              11777881,
+              1311746,
+              1575552,
+              nan,
+              16723548
+            ]
+          }

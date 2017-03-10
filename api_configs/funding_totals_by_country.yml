@@ -15,7 +15,7 @@ responses:
   200:
     description: The latest funding data (in USD) for the given country
     schema:
-      id: funding
+      id: funding_totals
       properties:
         country:
           type: string

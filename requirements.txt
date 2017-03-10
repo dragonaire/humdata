@@ -1,7 +1,7 @@
 Flask==0.12
 flask-restplus==0.10.0
 httpie==0.9.9
-pandas==0.16.0
+pandas==0.19.2
 #flask-restful-swagger==0.19
 #flask-restful-swagger-2==0.33
 flasgger==0.5.14

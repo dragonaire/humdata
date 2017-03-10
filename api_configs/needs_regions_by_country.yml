@@ -1,0 +1,87 @@
+Get needs data in specific regions for a country
+Call this endpoint to get the people-in-need data in specific regions for a given country
+---
+tags:
+  - Lake Chad Basin
+parameters:
+  - name: country
+    in: path
+    type: string
+    required: true
+    description: The country name (slugified, i.e. no special characters)
+responses:
+  501:
+    description: No regional needs data was found for this country
+  200:
+    description: The latest regional needs data for the given country
+    schema:
+      id: needs_regions
+      properties:
+        country:
+          type: string
+          description: The country name
+          default: Chad
+        source:
+          type: string
+          description: The data sources
+          default: HNO
+        data:
+          type: json
+          description: The needs data
+          default: {
+            "dates": [
+              "2015-02-28",
+              "2015-04-30",
+              "2015-06-30",
+              "2015-08-31",
+              "2015-10-31",
+              "2015-12-31",
+              "2016-02-29",
+              "2016-04-30",
+              "2016-06-30",
+              "2016-08-31"
+            ],
+            "values": {
+              "Lac": {
+                "IDP": [
+                  13380,
+                  13380,
+                  14168,
+                  51387,
+                  51387,
+                  36157,
+                  43761,
+                  89844,
+                  102575,
+                  107129
+                ],
+                "Refugee": [
+                  nan,
+                  18502,
+                  13384,
+                  13742,
+                  13742,
+                  13742,
+                  13742,
+                  13742,
+                  13742,
+                  13742
+                ]
+              },
+              "Mayo-Kebbi Est": {
+                "IDP": [],
+                "Refugee": [
+                  nan,
+                  1080,
+                  1334,
+                  1334,
+                  1334,
+                  1334,
+                  1334,
+                  1334,
+                  1334,
+                  1334
+                ]
+              }
+            }
+          }

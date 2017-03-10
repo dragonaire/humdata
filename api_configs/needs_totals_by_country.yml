@@ -1,0 +1,33 @@
+Get needs data for a country
+Call this endpoint to get the people-in-need data totals for a given country
+---
+tags:
+  - Lake Chad Basin
+parameters:
+  - name: country
+    in: path
+    type: string
+    required: true
+    description: The country name (slugified, i.e. no special characters)
+responses:
+  501:
+    description: No needs data was found for this country
+  200:
+    description: The latest needs data (estimated to the thousands of people) for the given country
+    schema:
+      id: needs_totals
+      properties:
+        country:
+          type: string
+          description: The country name
+          default: Chad
+        source:
+          type: array
+          description: The data sources
+          items:
+            type: string
+          default: ["HNO", "DTM"]
+        data:
+          type: json
+          description: The needs data
+          default: {'Country': 'Chad', 'People In Need': 345000, 'People Targeted For Assistance': 233000}
