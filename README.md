@@ -11,9 +11,7 @@ This is the initial effort to lay the groundwork for this to be possible.
 - [x] add landing page with links to api docs and repo
 - [x] construct endpoints for accessing the data
 - [x] a single data source end to end
-- [ ] a set of lake chad basin data sources end to end (more granular than country level, or historic data)
-- [ ] set up database and initial schemas (may not be practical)
-- [ ] scripts to load data into database (maynot be practical)
+- [x] a set of lake chad basin data sources end to end (more granular than country level, or historic data)
 
 # Swagger UI
 See the [website](http://127.0.0.1:5000) with interactive API documentation [here](http://127.0.0.1:5000/apidocs/index.html). 
@@ -22,8 +20,10 @@ Note: this is currently local, to see it run the following:
 python api.py
 ```
 Current set of endpoints (for Lake Chad Basin, 2016-2017):
-- GET /totals/funding/:country
-- GET /totals/needs/:country
+- GET /funding/totals/:country
+- GET /funding/categories/:country
+- GET /needs/totals/:country
+- GET /needs/regions/:country
 
 # Raw data sources
 To pull data from HDX (the Humanitarian Data Exchange), run the following:
