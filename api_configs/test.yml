@@ -1,0 +1,31 @@
+Test endpoint
+Use this endpoint for interim testing as needed
+---
+tags:
+  - Test Section
+parameters:
+  - name: country
+    in: path
+    type: string
+    required: true
+    description: The country name (slugified, i.e. no special characters)
+responses:
+  501:
+    description: No test data was found for this country
+  200:
+    description: The latest test data for the given country
+    schema:
+      id: test
+      properties:
+        country:
+          type: string
+          description: The country name
+          default: Chad
+        source:
+          type: string
+          description: The data source name
+          default: test
+        data:
+          type: json
+          description: The test data
+          default: {"test": 1}

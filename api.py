@@ -5,6 +5,7 @@ from flasgger import Swagger
 from flasgger.utils import swag_from
 
 from resources import constants
+from utils import api_utils
 
 
 SWAGGER_CONFIG = {
@@ -32,7 +33,7 @@ api = Swagger(app, config=SWAGGER_CONFIG)
 
 @app.route('/')
 def hello():
-    # background: https://uigradients.com/#GrapefruitSunset
+    # Background colors: https://uigradients.com/#GrapefruitSunset
     landing_page = """
       <!DOCTYPE html>
       <html>
@@ -63,13 +64,13 @@ def hello():
 @swag_from('api_configs/funding_totals_by_country.yml')
 def get_funding_totals(country):
     country = country.strip().capitalize()
-    funding_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'hno_funding_2016_2017.csv']), encoding='utf-8')
+    success, result = api_utils.safely_load_data('hno_funding_2016_2017.csv', 'funding', country)
+    if not success:
+        return result, 501
+    funding_df = result
     funding_df = funding_df.where((pd.notnull(funding_df)), None)
-    funding_for_country = funding_df[funding_df['Country'] == country]
-    if funding_for_country.empty:
-        return 'Error: No funding data was found for this country', 501
-    funding_for_country = funding_for_country.iloc[0].to_dict()
-    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=funding_for_country)
+    funding_df = funding_df.iloc[0].to_dict()
+    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=funding_df)
 
 
 @app.route('/needs/totals/<string:country>/', methods=['GET'])
@@ -77,26 +78,26 @@ def get_funding_totals(country):
 def get_needs_totals(country):
     data_keys = ['HNO']
     country = country.strip().capitalize()
-    needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'hno_needs_total_2017.csv']), encoding='utf-8')
-    needs_for_country = needs_df[needs_df['Country'] == country]
-    if needs_for_country.empty:
-        return 'Error: No needs data was found for this country', 501
+
+    success, result = api_utils.safely_load_data('hno_needs_total_2017.csv', 'needs', country)
+    if not success:
+        return result, 501
+    needs_for_country = result
     needs_for_country = needs_for_country.iloc[0]
-    needs_for_country['Additional Data'] = ast.literal_eval(needs_for_country['Additional Data'])
     needs_for_country = needs_for_country.to_dict()
-    needs_iom_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'iom_dtm14_needs_feb2017.csv']), encoding='utf-8')
-    needs_iom_for_country = needs_iom_df[needs_iom_df['Country'] == country]
-    if not needs_iom_for_country.empty:
+    needs_for_country['Additional Data'] = ast.literal_eval(needs_for_country['Additional Data'])
+
+    success, result = api_utils.safely_load_data('iom_dtm14_needs_feb2017.csv', 'IOM needs', country)
+    needs_iom_for_country = result
+    if success:
         needs_iom_for_country = needs_iom_for_country.iloc[0]
+        needs_iom_for_country = needs_iom_for_country.to_dict()
         needs_iom_for_country['Percent Main Unmet Need'] = ast.literal_eval(needs_iom_for_country['Percent Main Unmet Need'])
         needs_iom_for_country['Percent Main Cause Of Displacement'] = ast.literal_eval(needs_iom_for_country['Percent Main Cause Of Displacement'])
         needs_iom_for_country['Regional Summary'] = ast.literal_eval(needs_iom_for_country['Regional Summary'])
-        needs_iom_for_country = needs_iom_for_country.to_dict()
         needs_for_country['Additional Data'].update(needs_iom_for_country)
         data_keys.append('DTM')
-    # TODO: include 'merged_lake-chad-basin-fts-appeal-data_lake-chad-basin-key-figures-january-2017.csv' data
-    #needs_categories_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'merged_lake-chad-basin-fts-appeal-data_lake-chad-basin-key-figures-january-2017.csv']), encoding='utf-8')
-    #needs_categories_for_country = needs_categories_df.loc[needs_categories_df['Country'] == country]
+
     sources = [constants.DATA_SOURCES[data_key] for data_key in data_keys]
     return jsonify(country=country, source=sources, data=needs_for_country)
 
@@ -106,14 +107,10 @@ def get_needs_totals(country):
 def get_funding_categories(country):
     country = country.strip().capitalize()
     hno_funding_file = 'hno_funding_%s_2017.csv' % country.lower()
-    print hno_funding_file
-    funding_df = None
-    try:
-        funding_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, hno_funding_file]), encoding='utf-8')
-    except:
-        return 'Error: No funding data was found for this country (no file)', 501
-    if funding_df.empty:
-        return 'Error: No funding data was found for this country (empty file)', 501
+    success, result = api_utils.safely_load_data(hno_funding_file, 'category funding')
+    if not success:
+        return result, 501
+    funding_df = result
     funding_df = funding_df.where((pd.notnull(funding_df)), None)
     funding_dict = funding_df.to_dict(orient='list')
     return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=funding_dict)
@@ -123,14 +120,10 @@ def get_funding_categories(country):
 @swag_from('api_configs/needs_regions_by_country.yml')
 def get_needs_regions(country):
     country = country.strip().capitalize()
-    needs_df = None
-    try:
-        needs_df = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, 'lcb_displaced_2017.csv']), encoding='utf-8')
-        needs_df = needs_df[needs_df['Country'] == country]
-    except:
-        return 'Error: No regional needs data was found for this country  (no file)', 501
-    if needs_df.empty:
-        return 'Error: No regional needs data was found for this country (empty file)', 501
+    success, result = api_utils.safely_load_data('lcb_displaced_2017.csv', 'regional needs', country)
+    if not success:
+        return result, 501
+    needs_df = result
     needs_df = needs_df.where((pd.notnull(needs_df)), None)
     needs_df['PeriodDate'] = pd.to_datetime(needs_df['Period'])
     needs_df.sort_values(by=['ReportedLocation', 'PeriodDate'], inplace=True)
@@ -149,6 +142,16 @@ def get_needs_regions(country):
     data['dates'] = dates
     data['values'] = values
     return jsonify(country=country, source=constants.DATA_SOURCES['ORS'], data=data)
+
+
+@app.route('/test/<string:country>/', methods=['GET'])
+@swag_from('api_configs/test.yml')
+def test(country):
+    country = country.strip().capitalize()
+    success, result = api_utils.safely_load_data('test.csv', 'test')
+    if not success:
+        return result, 501
+    return jsonify(country=country, source='test', data=result.to_dict())
 
 
 if __name__ == '__main__':
