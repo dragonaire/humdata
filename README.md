@@ -30,6 +30,7 @@ To pull data from HDX (the Humanitarian Data Exchange), run the following:
 ```sh
 python3 run_hdx.py
 ```
+This data script is configured to run every Monday at 2:30am (system time) for the latest data.
 See `resources/constants.py` and `resources/data/raw`:
 - [HDX Lake Chad Basin Key Figures January 2017](https://data.humdata.org/dataset/lake-chad-basin-key-figures-january-2017)
 - [HDX Lake Chad Basin FTS Appeal Data](https://data.humdata.org/dataset/lake-chad-basin-fts-appeal-data)
