@@ -242,7 +242,7 @@ def run():
     if is_new_data:
         updateLatestDataDir(download_path, current_date_str)
 
-    print('== Num datasets configured: %d ==' % len(dataset_names))
+    print('== Num datasets configured: %d ==' % len(constants.HDX_DATASETS))
     print('== Num datasets downloaded: %d ==' % len(datasets))
     print('== Num resources loaded: %d ==' % num_resources)
     print('ALL RESOURCES:')
