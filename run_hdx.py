@@ -192,6 +192,7 @@ def createCurrentDateDir(parent_dir):
     dir_path = os.path.join(parent_dir, current_date_str)
     success = data_utils.safely_mkdir(dir_path)
     if not success:
+        # TODO: handle this bette
         # Safely default to returning the parent_dir if we cannot create the dir_path
         print('Could not create a new directory for the current date [%s], defaulting to existing parent dir' % current_date_str)
         dir_path = parent_dir
@@ -210,7 +211,7 @@ def updateLatestDataDir(download_path, current_date_str):
         return
     dir_util.copy_tree(download_path, constants.LATEST_RAW_DATA_PATH)
     with open(constants.LATEST_RAW_RUN_DATE_FILE, 'a') as run_file:
-        run_file.writelines(current_date_str)
+        run_file.write('{}\n'.format(current_date_str))
     return
 
 
