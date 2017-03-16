@@ -10,7 +10,7 @@ def safely_load_data(data_file, data_description, country_filter=None):
     success = False
     result = None
     try:
-        result = pd.read_csv('/'.join([constants.DERIVED_DATA_PATH, data_file]), encoding='utf-8')
+        result = pd.read_csv('/'.join([constants.EXAMPLE_DERIVED_DATA_PATH, data_file]), encoding='utf-8')
         success = True
         if result.empty:
             result = 'Error: No %s data was found for this country (empty file)' % data_description

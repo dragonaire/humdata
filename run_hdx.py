@@ -1,13 +1,14 @@
 import os.path
 import pandas as pd
+from datetime import date
+from distutils import dir_util
 
 from hdx.configuration import Configuration
 from hdx.data.dataset import Dataset
 
 from resources import constants
+from utils import data_utils
 
-
-### Functions ###
 
 def getDataset(dataset_name):
     """
@@ -24,17 +25,28 @@ def getDataset(dataset_name):
     """
 
     print('Get %s Dataset from HDX...' % dataset_name)
-    Configuration.create(hdx_site='feature', hdx_read_only=True)
-    dataset = Dataset.read_from_hdx(dataset_name)
-    # TODO: figure out what to do if you can't find the URL? data.humdata.org/ vs feature-data.humdata.org?
-    # the below config fallback doesn't work, may need to look into hdx_site...
+    dataset = None
+    for site_env in constants.HDX_SITES:
+        try:
+            print('Try configuration with hdx_site = %s...' % site_env)
+            Configuration.create(hdx_site=site_env, hdx_read_only=True)
+            dataset = Dataset.read_from_hdx(dataset_name)
+        except Exception as e:
+            print('Exception when trying to read dataset from env [%s]: %s!' % (site_env, e))
+        else:
+            if not dataset:
+                print('Configuration works but dataset name [%s] does not exist!' % dataset_name)
+            else:
+                print('Successfully found dataset from env [%s]: [%s]' % (site_env, dataset_name))
+                break
+
     if not dataset:
-        Configuration.create(hdx_site='prod', hdx_read_only=True)
-        dataset = Dataset.read_from_hdx(dataset_name)
+        print('Dataset [%s] does not exist despite trying all hdx_site envs!' % dataset_name)
+        raise  
 
     print('Extract metadata from dataset:')
-    #print(dataset.get_dataset_date())  # this doesn't always exist, optional? what is guaranteed?
-    print(dataset.get_expected_update_frequency())
+    #print(dataset.get_dataset_date())  # This doesn't always exist, optional? what is guaranteed?
+    print(dataset.get_expected_update_frequency())  # This should b guaranteed, see c`constants.py`
     print(dataset.get_location())
     print(dataset.get_tags())
 
@@ -46,7 +58,7 @@ def getDataset(dataset_name):
     return dataset, resources
 
 
-def loadResources(resources):
+def downloadResources(resources, download_path=constants.RAW_DATA_PATH):
     """
     Given a list of HDX Resources, download its Resource files and load them as pandas dataframes.
     Return a dictionary of Resource filenames and their corresponding loaded pandas dataframes.
@@ -56,7 +68,7 @@ def loadResources(resources):
 
     resource_dfs = {}
     for resource in resources:
-        resource_url, resource_path = resource.download(constants.RAW_DATA_PATH)
+        resource_url, resource_path = resource.download(download_path)
         print('Resource URL %s downloaded to %s' % (resource_url, resource_path))
         resource_filename = os.path.basename(resource_path)
         resource_dfs[resource_filename] = loadResourceFromPath(resource_path)
@@ -170,31 +182,74 @@ def mergeByCountryLatestDate(res1, res1_cols, res2, res2_cols, merge_key='countr
     return merged_res
 
 
+def createCurrentDateDir(parent_dir):
+    """
+    Create a new directory with the current date (ISO format) under the given parent_dir.
+    Return whether it was successful, the full path for the new directory, and the current date string.
+    If the date directory already exists or is not successful, default to returning the parent_dir as the full path.
+    """
+    current_date_str = date.today().isoformat()
+    dir_path = os.path.join(parent_dir, current_date_str)
+    success = data_utils.safely_mkdir(dir_path)
+    if not success:
+        # Safely default to returning the parent_dir if we cannot create the dir_path
+        print('Could not create a new directory for the current date [%s], defaulting to existing parent dir' % current_date_str)
+        dir_path = parent_dir
+    else:
+        print("Created new raw data dir: %s" % dir_path)
+    return success, dir_path, current_date_str
+
+
+def updateLatestDataDir(download_path, current_date_str):
+    """
+    Copies all files from the given download_path into the latest data directory configured in
+    `resources/constants.py`. Appends to the run_dates.txt file with the current run date.
+    """
+    if not download_path or not current_date_str:
+        print('Could not copy latest data for this run to the latest data directory!')
+        return
+    dir_util.copy_tree(download_path, constants.LATEST_RAW_DATA_PATH)
+    with open(constants.LATEST_RAW_RUN_DATE_FILE, 'a') as run_file:
+        run_file.writelines(current_date_str)
+    return
+
+
 def run():
     print('Download and merge data from HDX')
-    dataset_names = ['lcb-displaced', 'lake-chad-basin-fts-appeal-data', 'lake-chad-basin-key-figures-january-2017']
-    #dataset_names = ['nigeria-iom-dtm-datasets']
     datasets = {}
     resources = {}
+    # Create current date directory
+    print('Create current date directory as the download path...')
+    _, download_path, current_date_str = createCurrentDateDir(constants.RAW_DATA_PATH)
     # Download resources
     print('Download Resources...')
     num_resources = 0
-    for dataset_name in dataset_names:  # TODO: replace with constants.HDX_DATASETS
-        resource_path = None
+    is_new_data = False
+    for dataset_name in constants.HDX_DATASETS:
+        resource_list = None
         try:
             dataset, resource_list = getDataset(dataset_name)
             datasets[dataset_name] = dataset
-            resource_dfs = loadResources(resource_list)
+            resource_dfs = downloadResources(resource_list, download_path)
             resources[dataset_name] = resource_dfs
             num_resources = num_resources + len(resource_dfs)
-        except:
+            if not is_new_data and len(resource_dfs):
+                is_new_data = True
+        except Exception as e:
             print('Exception: could not reach the HDX API to download data!')
+            print(e)
+
+    if is_new_data:
+        updateLatestDataDir(download_path, current_date_str)
 
     print('== Num datasets configured: %d ==' % len(dataset_names))
     print('== Num datasets downloaded: %d ==' % len(datasets))
     print('== Num resources loaded: %d ==' % num_resources)
     print('ALL RESOURCES:')
-    print(resources)
+    #print(resources)
+    for dataset_name, resource_dfs in resources.items():
+        print('Dataset: %s' % dataset_name)
+        print('Resources for dataset: %s' % list(resource_dfs.keys()))
 
     # Join resources
     #print('Join Resources...')

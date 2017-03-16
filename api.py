@@ -67,10 +67,9 @@ def get_funding_totals(country):
     success, result = api_utils.safely_load_data('hno_funding_2016_2017.csv', 'funding', country)
     if not success:
         return result, 501
-    funding_df = result
-    funding_df = funding_df.where((pd.notnull(funding_df)), None)
-    funding_df = funding_df.iloc[0].to_dict()
-    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=funding_df)
+    result = result.where((pd.notnull(result)), None)
+    result = result.iloc[0].to_dict()
+    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=result)
 
 
 @app.route('/needs/totals/<string:country>/', methods=['GET'])
@@ -82,24 +81,21 @@ def get_needs_totals(country):
     success, result = api_utils.safely_load_data('hno_needs_total_2017.csv', 'needs', country)
     if not success:
         return result, 501
-    needs_for_country = result
-    needs_for_country = needs_for_country.iloc[0]
-    needs_for_country = needs_for_country.to_dict()
-    needs_for_country['Additional Data'] = ast.literal_eval(needs_for_country['Additional Data'])
+    result = result.iloc[0]
+    result = result.to_dict()
+    result['Additional Data'] = ast.literal_eval(result['Additional Data'])
 
-    success, result = api_utils.safely_load_data('iom_dtm14_needs_feb2017.csv', 'IOM needs', country)
-    needs_iom_for_country = result
+    success, iom = api_utils.safely_load_data('iom_dtm14_needs_feb2017.csv', 'IOM needs', country)
     if success:
-        needs_iom_for_country = needs_iom_for_country.iloc[0]
-        needs_iom_for_country = needs_iom_for_country.to_dict()
-        needs_iom_for_country['Percent Main Unmet Need'] = ast.literal_eval(needs_iom_for_country['Percent Main Unmet Need'])
-        needs_iom_for_country['Percent Main Cause Of Displacement'] = ast.literal_eval(needs_iom_for_country['Percent Main Cause Of Displacement'])
-        needs_iom_for_country['Regional Summary'] = ast.literal_eval(needs_iom_for_country['Regional Summary'])
-        needs_for_country['Additional Data'].update(needs_iom_for_country)
+        iom = iom.iloc[0].to_dict()
+        iom['Percent Main Unmet Need'] = ast.literal_eval(iom['Percent Main Unmet Need'])
+        iom['Percent Main Cause Of Displacement'] = ast.literal_eval(iom['Percent Main Cause Of Displacement'])
+        iom['Regional Summary'] = ast.literal_eval(iom['Regional Summary'])
+        result['Additional Data'].update(iom)
         data_keys.append('DTM')
 
     sources = [constants.DATA_SOURCES[data_key] for data_key in data_keys]
-    return jsonify(country=country, source=sources, data=needs_for_country)
+    return jsonify(country=country, source=sources, data=result)
 
 
 @app.route('/funding/categories/<string:country>/', methods=['GET'])
@@ -110,10 +106,9 @@ def get_funding_categories(country):
     success, result = api_utils.safely_load_data(hno_funding_file, 'category funding')
     if not success:
         return result, 501
-    funding_df = result
-    funding_df = funding_df.where((pd.notnull(funding_df)), None)
-    funding_dict = funding_df.to_dict(orient='list')
-    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=funding_dict)
+    result = result.where((pd.notnull(result)), None)
+    result = result.to_dict(orient='list')
+    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=result)
 
 
 @app.route('/needs/regions/<string:country>/', methods=['GET'])
@@ -123,16 +118,15 @@ def get_needs_regions(country):
     success, result = api_utils.safely_load_data('lcb_displaced_2017.csv', 'regional needs', country)
     if not success:
         return result, 501
-    needs_df = result
-    needs_df = needs_df.where((pd.notnull(needs_df)), None)
-    needs_df['PeriodDate'] = pd.to_datetime(needs_df['Period'])
-    needs_df.sort_values(by=['ReportedLocation', 'PeriodDate'], inplace=True)
-    dates = needs_df['Period'].unique().tolist()
-    regions = needs_df['ReportedLocation'].unique().tolist()
-    displacement_types = needs_df['DisplType'].unique().tolist()
+    result = result.where((pd.notnull(result)), None)
+    result['PeriodDate'] = pd.to_datetime(result['Period'])
+    result.sort_values(by=['ReportedLocation', 'PeriodDate'], inplace=True)
+    dates = result['Period'].unique().tolist()
+    regions = result['ReportedLocation'].unique().tolist()
+    displacement_types = result['DisplType'].unique().tolist()
     # Construct a dict for region name -> displacement type -> list of totals where index corresponds to dates list
     values = {}
-    region_groups = needs_df.groupby('ReportedLocation')
+    region_groups = result.groupby('ReportedLocation')
     for region, group in region_groups:
         group_df = pd.DataFrame(group).reset_index()
         idp = group_df[group_df.DisplType == 'idp']['TotalTotal'].tolist()

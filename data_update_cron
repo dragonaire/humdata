@@ -1,0 +1,2 @@
+# Run data download script once a week (every Monday 2:30am) to pull the latest data
+30 2 * * 1

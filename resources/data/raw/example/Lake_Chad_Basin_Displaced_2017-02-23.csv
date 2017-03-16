@@ -1,0 +1,275 @@
+Country,ReportedLocation,Period,TotalTotal,DisplType
+#country+name,#adm1+name,#date+bin,#affected+displaced,#affected+type
+Cameroon,Extrême-Nord,2015-02-28,,refugee
+Cameroon,Extrême-Nord,2015-04-30,,refugee
+Cameroon,Extrême-Nord,2015-06-30,,refugee
+Cameroon,Extrême-Nord,2015-08-31,61366.0,refugee
+Cameroon,Extrême-Nord,2015-10-31,64715.0,refugee
+Cameroon,Extrême-Nord,2015-12-31,64715.0,refugee
+Cameroon,Extrême-Nord,2016-02-29,64715.0,refugee
+Cameroon,Extrême-Nord,2016-04-30,64715.0,refugee
+Cameroon,Extrême-Nord,2016-06-30,65089.0,refugee
+Cameroon,Extrême-Nord,2016-08-31,65741.0,refugee
+Cameroon,Extrême-Nord,2016-10-31,73745.0,refugee
+Cameroon,Extrême-Nord,2016-12-31,86039.0,refugee
+Cameroon,Extrême-Nord,2017-02-28,86039.0,refugee
+Chad,Lac,2015-02-28,,refugee
+Chad,Lac,2015-04-30,18502.0,refugee
+Chad,Lac,2015-06-30,13384.0,refugee
+Chad,Lac,2015-08-31,13742.0,refugee
+Chad,Lac,2015-10-31,13742.0,refugee
+Chad,Lac,2015-12-31,13742.0,refugee
+Chad,Lac,2016-02-29,13742.0,refugee
+Chad,Lac,2016-04-30,13742.0,refugee
+Chad,Lac,2016-06-30,13742.0,refugee
+Chad,Lac,2016-08-31,13742.0,refugee
+Chad,Lac,2016-10-31,13742.0,refugee
+Chad,Lac,2016-12-31,13742.0,refugee
+Chad,Lac,2017-02-28,13742.0,refugee
+Chad,Mayo-Kebbi Est,2015-02-28,,refugee
+Chad,Mayo-Kebbi Est,2015-04-30,1080.0,refugee
+Chad,Mayo-Kebbi Est,2015-06-30,1334.0,refugee
+Chad,Mayo-Kebbi Est,2015-08-31,1334.0,refugee
+Chad,Mayo-Kebbi Est,2015-10-31,1334.0,refugee
+Chad,Mayo-Kebbi Est,2015-12-31,1334.0,refugee
+Chad,Mayo-Kebbi Est,2016-02-29,1334.0,refugee
+Chad,Mayo-Kebbi Est,2016-04-30,1334.0,refugee
+Chad,Mayo-Kebbi Est,2016-06-30,1334.0,refugee
+Chad,Mayo-Kebbi Est,2016-08-31,1334.0,refugee
+Chad,Mayo-Kebbi Est,2016-10-31,1334.0,refugee
+Chad,Mayo-Kebbi Est,2016-12-31,1334.0,refugee
+Chad,Mayo-Kebbi Est,2017-02-28,1334.0,refugee
+Niger,Diffa,2015-02-28,63941.0,refugee
+Niger,Diffa,2015-04-30,63941.0,refugee
+Niger,Diffa,2015-06-30,63941.0,refugee
+Niger,Diffa,2015-08-31,63941.0,refugee
+Niger,Diffa,2015-10-31,94152.0,refugee
+Niger,Diffa,2015-12-31,93343.0,refugee
+Niger,Diffa,2016-02-29,97744.0,refugee
+Niger,Diffa,2016-04-30,97744.0,refugee
+Niger,Diffa,2016-06-30,82524.0,refugee
+Niger,Diffa,2016-08-31,82524.0,refugee
+Niger,Diffa,2016-10-31,88668.0,refugee
+Niger,Diffa,2016-12-31,96940.0,refugee
+Niger,Diffa,2017-02-28,105386.0,refugee
+Cameroon,Extrême-Nord,2015-02-28,,idp
+Cameroon,Extrême-Nord,2015-04-30,96042.0,idp
+Cameroon,Extrême-Nord,2015-06-30,81693.0,idp
+Cameroon,Extrême-Nord,2015-08-31,92657.0,idp
+Cameroon,Extrême-Nord,2015-10-31,92657.0,idp
+Cameroon,Extrême-Nord,2015-12-31,92657.0,idp
+Cameroon,Extrême-Nord,2016-02-29,169970.0,idp
+Cameroon,Extrême-Nord,2016-04-30,190591.0,idp
+Cameroon,Extrême-Nord,2016-06-30,190591.0,idp
+Cameroon,Extrême-Nord,2016-08-31,192912.0,idp
+Cameroon,Extrême-Nord,2016-10-31,192912.0,idp
+Cameroon,Extrême-Nord,2016-12-31,198889.0,idp
+Cameroon,Extrême-Nord,2017-02-28,198889.0,idp
+Chad,Lac,2015-02-28,13380.0,idp
+Chad,Lac,2015-04-30,13380.0,idp
+Chad,Lac,2015-06-30,14168.0,idp
+Chad,Lac,2015-08-31,51387.0,idp
+Chad,Lac,2015-10-31,51387.0,idp
+Chad,Lac,2015-12-31,36157.0,idp
+Chad,Lac,2016-02-29,43761.0,idp
+Chad,Lac,2016-04-30,89844.0,idp
+Chad,Lac,2016-06-30,102575.0,idp
+Chad,Lac,2016-08-31,107129.0,idp
+Chad,Lac,2016-10-31,105070.0,idp
+Chad,Lac,2016-12-31,108476.0,idp
+Chad,Lac,2017-02-28,103670.0,idp
+Niger,Diffa,2015-02-28,,idp
+Niger,Diffa,2015-04-30,,idp
+Niger,Diffa,2015-06-30,66402.0,idp
+Niger,Diffa,2015-08-31,66402.0,idp
+Niger,Diffa,2015-10-31,46988.0,idp
+Niger,Diffa,2015-12-31,46988.0,idp
+Niger,Diffa,2016-02-29,58926.0,idp
+Niger,Diffa,2016-04-30,58926.0,idp
+Niger,Diffa,2016-06-30,127208.0,idp
+Niger,Diffa,2016-08-31,167208.0,idp
+Niger,Diffa,2016-10-31,184404.0,idp
+Niger,Diffa,2016-12-31,108998.0,idp
+Niger,Diffa,2017-02-28,121320.0,idp
+Nigeria,Adamawa,2015-02-28,220159.0,idp
+Nigeria,Adamawa,2015-04-30,220159.0,idp
+Nigeria,Adamawa,2015-06-30,113437.0,idp
+Nigeria,Adamawa,2015-08-31,117729.0,idp
+Nigeria,Adamawa,2015-10-31,117729.0,idp
+Nigeria,Adamawa,2015-12-31,136010.0,idp
+Nigeria,Adamawa,2016-02-29,132626.0,idp
+Nigeria,Adamawa,2016-04-30,150718.0,idp
+Nigeria,Adamawa,2016-06-30,159445.0,idp
+Nigeria,Adamawa,2016-08-31,159445.0,idp
+Nigeria,Adamawa,2016-10-31,163559.0,idp
+Nigeria,Adamawa,2016-12-31,170070.0,idp
+Nigeria,Adamawa,2017-02-28,170070.0,idp
+Nigeria,Bauchi,2015-02-28,60555.0,idp
+Nigeria,Bauchi,2015-04-30,60555.0,idp
+Nigeria,Bauchi,2015-06-30,76504.0,idp
+Nigeria,Bauchi,2015-08-31,72398.0,idp
+Nigeria,Bauchi,2015-10-31,72398.0,idp
+Nigeria,Bauchi,2015-12-31,70078.0,idp
+Nigeria,Bauchi,2016-02-29,65365.0,idp
+Nigeria,Bauchi,2016-04-30,63731.0,idp
+Nigeria,Bauchi,2016-06-30,63149.0,idp
+Nigeria,Bauchi,2016-08-31,63149.0,idp
+Nigeria,Bauchi,2016-10-31,61717.0,idp
+Nigeria,Bauchi,2016-12-31,58955.0,idp
+Nigeria,Bauchi,2017-02-28,58955.0,idp
+Nigeria,Benue,2015-02-28,,idp
+Nigeria,Benue,2015-04-30,,idp
+Nigeria,Benue,2015-06-30,,idp
+Nigeria,Benue,2015-08-31,,idp
+Nigeria,Benue,2015-10-31,,idp
+Nigeria,Benue,2015-12-31,85393.0,idp
+Nigeria,Benue,2016-02-29,85850.0,idp
+Nigeria,Benue,2016-04-30,106074.0,idp
+Nigeria,Benue,2016-06-30,69206.0,idp
+Nigeria,Benue,2016-08-31,69206.0,idp
+Nigeria,Benue,2016-10-31,30584.0,idp
+Nigeria,Benue,2016-12-31,30584.0,idp
+Nigeria,Benue,2017-02-28,30584.0,idp
+Nigeria,Borno,2015-02-28,672714.0,idp
+Nigeria,Borno,2015-04-30,672714.0,idp
+Nigeria,Borno,2015-06-30,1002688.0,idp
+Nigeria,Borno,2015-08-31,1650799.0,idp
+Nigeria,Borno,2015-10-31,1650799.0,idp
+Nigeria,Borno,2015-12-31,1434149.0,idp
+Nigeria,Borno,2016-02-29,1525404.0,idp
+Nigeria,Borno,2016-04-30,1636190.0,idp
+Nigeria,Borno,2016-06-30,1626167.0,idp
+Nigeria,Borno,2016-08-31,1626167.0,idp
+Nigeria,Borno,2016-10-31,1446829.0,idp
+Nigeria,Borno,2016-12-31,1392927.0,idp
+Nigeria,Borno,2017-02-28,1392927.0,idp
+Nigeria,Federal Capital Territory,2015-02-28,3418.0,idp
+Nigeria,Federal Capital Territory,2015-04-30,3418.0,idp
+Nigeria,Federal Capital Territory,2015-06-30,3418.0,idp
+Nigeria,Federal Capital Territory,2015-08-31,10233.0,idp
+Nigeria,Federal Capital Territory,2015-10-31,10233.0,idp
+Nigeria,Federal Capital Territory,2015-12-31,13481.0,idp
+Nigeria,Federal Capital Territory,2016-02-29,15154.0,idp
+Nigeria,Federal Capital Territory,2016-04-30,16635.0,idp
+Nigeria,Federal Capital Territory,2016-06-30,18445.0,idp
+Nigeria,Federal Capital Territory,2016-08-31,18445.0,idp
+Nigeria,Federal Capital Territory,2016-10-31,20924.0,idp
+Nigeria,Federal Capital Territory,2016-12-31,20924.0,idp
+Nigeria,Federal Capital Territory,2017-02-28,20924.0,idp
+Nigeria,Gombe,2015-02-28,24655.0,idp
+Nigeria,Gombe,2015-04-30,24655.0,idp
+Nigeria,Gombe,2015-06-30,16984.0,idp
+Nigeria,Gombe,2015-08-31,18209.0,idp
+Nigeria,Gombe,2015-10-31,18209.0,idp
+Nigeria,Gombe,2015-12-31,25332.0,idp
+Nigeria,Gombe,2016-02-29,26233.0,idp
+Nigeria,Gombe,2016-04-30,26634.0,idp
+Nigeria,Gombe,2016-06-30,27376.0,idp
+Nigeria,Gombe,2016-08-31,27376.0,idp
+Nigeria,Gombe,2016-10-31,28972.0,idp
+Nigeria,Gombe,2016-12-31,28296.0,idp
+Nigeria,Gombe,2017-02-28,28296.0,idp
+Nigeria,Kaduna,2015-02-28,805.0,idp
+Nigeria,Kaduna,2015-04-30,805.0,idp
+Nigeria,Kaduna,2015-06-30,805.0,idp
+Nigeria,Kaduna,2015-08-31,805.0,idp
+Nigeria,Kaduna,2015-10-31,805.0,idp
+Nigeria,Kaduna,2015-12-31,36976.0,idp
+Nigeria,Kaduna,2016-02-29,40688.0,idp
+Nigeria,Kaduna,2016-04-30,31178.0,idp
+Nigeria,Kaduna,2016-06-30,28477.0,idp
+Nigeria,Kaduna,2016-08-31,28477.0,idp
+Nigeria,Kaduna,2016-10-31,28972.0,idp
+Nigeria,Kaduna,2016-12-31,28972.0,idp
+Nigeria,Kaduna,2017-02-28,28972.0,idp
+Nigeria,Kano,2015-02-28,1054.0,idp
+Nigeria,Kano,2015-04-30,1054.0,idp
+Nigeria,Kano,2015-06-30,1054.0,idp
+Nigeria,Kano,2015-08-31,1054.0,idp
+Nigeria,Kano,2015-10-31,1054.0,idp
+Nigeria,Kano,2015-12-31,9331.0,idp
+Nigeria,Kano,2016-02-29,11853.0,idp
+Nigeria,Kano,2016-04-30,10834.0,idp
+Nigeria,Kano,2016-06-30,10366.0,idp
+Nigeria,Kano,2016-08-31,10366.0,idp
+Nigeria,Kano,2016-10-31,9910.0,idp
+Nigeria,Kano,2016-12-31,9910.0,idp
+Nigeria,Kano,2017-02-28,9910.0,idp
+Nigeria,Lagos,2015-02-28,1716.0,idp
+Nigeria,Lagos,2015-04-30,1716.0,idp
+Nigeria,Lagos,2015-06-30,1716.0,idp
+Nigeria,Lagos,2015-08-31,1716.0,idp
+Nigeria,Lagos,2015-10-31,1716.0,idp
+Nigeria,Lagos,2015-12-31,1716.0,idp
+Nigeria,Lagos,2016-02-29,1716.0,idp
+Nigeria,Lagos,2016-04-30,1716.0,idp
+Nigeria,Lagos,2016-06-30,1716.0,idp
+Nigeria,Lagos,2016-08-31,1716.0,idp
+Nigeria,Lagos,2016-10-31,1716.0,idp
+Nigeria,Lagos,2016-12-31,1716.0,idp
+Nigeria,Lagos,2017-02-28,1716.0,idp
+Nigeria,Nassarawa,2015-02-28,929.0,idp
+Nigeria,Nassarawa,2015-04-30,929.0,idp
+Nigeria,Nassarawa,2015-06-30,929.0,idp
+Nigeria,Nassarawa,2015-08-31,41129.0,idp
+Nigeria,Nassarawa,2015-10-31,41129.0,idp
+Nigeria,Nassarawa,2015-12-31,37553.0,idp
+Nigeria,Nassarawa,2016-02-29,37953.0,idp
+Nigeria,Nassarawa,2016-04-30,38720.0,idp
+Nigeria,Nassarawa,2016-06-30,26493.0,idp
+Nigeria,Nassarawa,2016-08-31,26493.0,idp
+Nigeria,Nassarawa,2016-10-31,24795.0,idp
+Nigeria,Nassarawa,2016-12-31,24795.0,idp
+Nigeria,Nassarawa,2017-02-28,24795.0,idp
+Nigeria,Plateau,2015-02-28,20845.0,idp
+Nigeria,Plateau,2015-04-30,20845.0,idp
+Nigeria,Plateau,2015-06-30,20845.0,idp
+Nigeria,Plateau,2015-08-31,20845.0,idp
+Nigeria,Plateau,2015-10-31,20845.0,idp
+Nigeria,Plateau,2015-12-31,77317.0,idp
+Nigeria,Plateau,2016-02-29,68365.0,idp
+Nigeria,Plateau,2016-04-30,54316.0,idp
+Nigeria,Plateau,2016-06-30,51771.0,idp
+Nigeria,Plateau,2016-08-31,51771.0,idp
+Nigeria,Plateau,2016-10-31,45746.0,idp
+Nigeria,Plateau,2016-12-31,45746.0,idp
+Nigeria,Plateau,2017-02-28,45746.0,idp
+Nigeria,Taraba,2015-02-28,74125.0,idp
+Nigeria,Taraba,2015-04-30,74125.0,idp
+Nigeria,Taraba,2015-06-30,50201.0,idp
+Nigeria,Taraba,2015-08-31,44036.0,idp
+Nigeria,Taraba,2015-10-31,44036.0,idp
+Nigeria,Taraba,2015-12-31,50227.0,idp
+Nigeria,Taraba,2016-02-29,45587.0,idp
+Nigeria,Taraba,2016-04-30,46824.0,idp
+Nigeria,Taraba,2016-06-30,46942.0,idp
+Nigeria,Taraba,2016-08-31,46942.0,idp
+Nigeria,Taraba,2016-10-31,47195.0,idp
+Nigeria,Taraba,2016-12-31,47587.0,idp
+Nigeria,Taraba,2017-02-28,47587.0,idp
+Nigeria,Yobe,2015-02-28,135810.0,idp
+Nigeria,Yobe,2015-04-30,135810.0,idp
+Nigeria,Yobe,2015-06-30,125484.0,idp
+Nigeria,Yobe,2015-08-31,195918.0,idp
+Nigeria,Yobe,2015-10-31,195918.0,idp
+Nigeria,Yobe,2015-12-31,131203.0,idp
+Nigeria,Yobe,2016-02-29,139550.0,idp
+Nigeria,Yobe,2016-04-30,134415.0,idp
+Nigeria,Yobe,2016-06-30,112671.0,idp
+Nigeria,Yobe,2016-08-31,112671.0,idp
+Nigeria,Yobe,2016-10-31,135442.0,idp
+Nigeria,Yobe,2016-12-31,124706.0,idp
+Nigeria,Yobe,2017-02-28,124706.0,idp
+Nigeria,Zamfara,2015-02-28,,idp
+Nigeria,Zamfara,2015-04-30,,idp
+Nigeria,Zamfara,2015-06-30,,idp
+Nigeria,Zamfara,2015-08-31,,idp
+Nigeria,Zamfara,2015-10-31,,idp
+Nigeria,Zamfara,2015-12-31,44929.0,idp
+Nigeria,Zamfara,2016-02-29,46856.0,idp
+Nigeria,Zamfara,2016-04-30,47540.0,idp
+Nigeria,Zamfara,2016-06-30,47959.0,idp
+Nigeria,Zamfara,2016-08-31,47959.0,idp
+Nigeria,Zamfara,2016-10-31,48430.0,idp
+Nigeria,Zamfara,2016-12-31,48430.0,idp
+Nigeria,Zamfara,2017-02-28,48430.0,idp
