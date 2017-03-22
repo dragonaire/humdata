@@ -1,15 +1,16 @@
+import os.path
 # Constants
 
 # TODO: make these relative paths
 BASE_DATA_PATH = '/Users/yang/Documents/clients/onecampaign/project/humdata/resources/data'
-RAW_DATA_PATH = '/'.join([BASE_DATA_PATH, 'raw'])
-DERIVED_DATA_PATH = '/'.join([BASE_DATA_PATH, 'derived'])
-LATEST_RAW_DATA_PATH = '/'.join([RAW_DATA_PATH, 'latest'])
-LATEST_RAW_RUN_DATE_FILE = '/'.join([LATEST_RAW_DATA_PATH, 'run_dates.txt'])
-LATEST_DERIVED_DATA_PATH = '/'.join([DERIVED_DATA_PATH, 'latest'])
-LATEST_DERIVED_RUN_DATE_FILE = '/'.join([LATEST_DERIVED_DATA_PATH, 'run_dates.txt'])
-EXAMPLE_RAW_DATA_PATH = '/'.join([RAW_DATA_PATH, 'example'])
-EXAMPLE_DERIVED_DATA_PATH = '/'.join([DERIVED_DATA_PATH, 'example'])
+RAW_DATA_PATH = os.path.join(BASE_DATA_PATH, 'raw')
+DERIVED_DATA_PATH = os.path.join(BASE_DATA_PATH, 'derived')
+LATEST_RAW_DATA_PATH = os.path.join(RAW_DATA_PATH, 'latest')
+LATEST_RAW_RUN_DATE_FILE = os.path.join(LATEST_RAW_DATA_PATH, 'run_dates.txt')
+LATEST_DERIVED_DATA_PATH = os.path.join(DERIVED_DATA_PATH, 'latest')
+LATEST_DERIVED_RUN_DATE_FILE = os.path.join(LATEST_DERIVED_DATA_PATH, 'run_dates.txt')
+EXAMPLE_RAW_DATA_PATH = os.path.join(RAW_DATA_PATH, 'example')
+EXAMPLE_DERIVED_DATA_PATH = os.path.join(DERIVED_DATA_PATH, 'example')
 
 # Map of country codes to country names, ISO 3166-1 alpha-3 (similar to UNDP and NATO standards)
 # TODO: verify which country code standard the int'l dev community actually uses
@@ -52,3 +53,20 @@ HDX_UPDATE_FREQUENCY = [
   'Every year',
   'Never'
 ]
+
+# FTS sub-directory (e.g. under data/raw/latest)
+FTS_DIR = 'fts'
+
+# FTS data download date file
+FTS_DOWNLOAD_DATE_FILE = 'download_date.txt'
+
+# FTS data file prefix
+FTS_FILE_PREFIX = 'fts-appeals'
+
+# FTS data schemas
+FTS_SCHEMAS = {
+  'donors': ['Donor organization', 'Funding US$', 'Pledges US$'],
+  'clusters': ['Cluster/Sector', 'Requirements US$', 'Funding US$', 'Coverage %'],
+  'recipients': ['Recipient organization', 'Requirements US$', 'Funding US$', 'Pledges US$', 'Coverage %']
+}
+
