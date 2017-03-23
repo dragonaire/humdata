@@ -1,3 +1,4 @@
+import sys
 import ast
 import pandas as pd
 from flask import Flask, jsonify, request
@@ -246,6 +247,16 @@ def test(country):
     return jsonify(country=country, source='test', data=result.to_dict(), update=constants.UPDATE_FREQUENCY[-1])
 
 
+def main():
+    env_type = 'local'
+    if len(sys.argv) == 2:
+        env_type = sys.argv[1]
+    if env_type == 'remote':
+        app.run(debug=True, port=80, host='0.0.0.0')
+    else:
+        app.run(debug=True)
+
+
 if __name__ == '__main__':
-    #app.run(debug=True, port=80, host='0.0.0.0')
-    app.run(debug=True)
+    main()
+
