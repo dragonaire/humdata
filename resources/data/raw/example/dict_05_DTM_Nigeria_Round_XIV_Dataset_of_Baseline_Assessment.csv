@@ -1,0 +1,30 @@
+FIELD NAME,DESCRIPTION
+State PCode,Code of the State based on the name
+State Name,Name of the State (Nigeria Administrative unit 1)
+LGA PCode,Code of the LGA based on the correspondent State name and numeric order
+LGA Name,Name of the Local Government Area (Nigeria Administrative unit 2)
+Ward PCode,Code of the Ward based on the correspondent State name and LGA number
+Ward Name,Name of the Ward (Nigeria Administrative unit 3) - small administrative unit usually encompassisng  few villages in rural areas or neighborhoods in urban areas
+Estimated number of households by Ward,"Number of IDP Households in the ward as per DTM team estimation based on observation, key informants interview and available lists "
+Estimated number of individuals by Ward,"Number of IDP Individuals in the ward as per DTM team estimation based on observation, key informants interview and available lists "
+Location Type,"Host community: where the IDPs are temporarily living with family, relatives or friends. In this setting the basic needs of the displaced family are provided by the host family. 
+Camp/camp-like settings include:
+Camp: open-air settlements, usually made-up of tents, where IDPs find accommodation;
+Collective center: pre-existing buildings and structures used for collective and communal settlements of the displaced population;
+Transitional center: centers which provide short term/temporary accommodation for the displaced population."
+SSID ,Site ID
+Displacement Year,Year of displacement of the majority of IDPs in the Ward
+State of origin of majority,Name of the State identified as being the origin of the majority of IDPs in the Ward
+LGA of origin of majority,Name of the LGA identified as being the origin of the majority of IDPs in the Ward
+Reason of displacement Insurgency_Yes or No,Wards where DTM identified IDPs displaced due to insurgency reasons
+Number of household displaced by insurgency,Number of IDP Households identified as being displaced due to insurgency reasons
+Number of individuals displaced by insurgency,Number of IDP Individuals identified as being displaced due to insurgency reasons
+Reason of displacement Commnunity clash_Yes or No,Wards where DTM identified IDPs displaced due to community clash reasons
+Number of household displaced by community clash,Number of IDP Households identified as being displaced due to community clash reasons
+Number of individuals displaced by community clash,Number of IDP Individuals identified as being displaced due to community clash reasons
+Reason of displacement Natural disasters_Yes or No,Wards where DTM identified IDPs displaced due to natural disasters 
+Number of household displaced by natural disasters,Number of IDP Households identified as being displaced due to natural disasters 
+Number of individuals displaced by natural disasters,Number of IDP Individuals identified as being displaced due to natural disasters
+Other reason of displacement_Yes or No,Wards where DTM identified IDPs displaced due to other reasons
+Number of household displaced by other reasons,Number of IDP Households identified as being displaced due to other reasons
+Number of individuals displaced by other reasons,Number of IDP Individuals identified as being displaced due to other reasons

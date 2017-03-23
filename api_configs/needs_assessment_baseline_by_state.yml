@@ -1,0 +1,71 @@
+Get needs data in specific ward baselines for a country's state
+Call this endpoint to get the needs data in specific ward baselines for a country's state
+---
+tags:
+  - Lake Chad Basin
+parameters:
+  - name: country
+    in: path
+    type: string
+    required: true
+    description: The country name (case-insensitive, slugified, i.e. no special characters)
+    enum:
+      - Nigeria
+  - name: state
+    in: query
+    type: string
+    required: true
+    description: The state name (case-insensitive, slugified, i.e. no special characters)
+    enum:
+      - Adamawa
+      - Bauchi
+      - Borno
+      - Gombe
+      - Taraba
+      - Yobe
+ #- Adamawa
+ #- Bauchi
+ #- Benue
+ #- Borno
+ #- Diffa
+ #- Extreme-Nord
+ #- Federal Capital Territory
+ #- Gombe
+ #- Kaduna
+ #- Kano
+ #- Lac
+ #- Lagos
+ #- Mayo-Kebbi Est
+ #- Nassarawa
+ #- Plateau
+ #- Taraba
+ #- Yobe
+ #- Zamfara
+responses:
+  501:
+    description: No regional needs data was found for this country
+  200:
+    description: The latest regional needs data for the given country
+    schema:
+      id: needs_assessment_site
+      properties:
+        country:
+          type: string
+          description: The country name
+          default: Nigeria
+        state:
+          type: string
+          description: The state name
+          default: Borno
+        source:
+          type: string
+          description: The data sources
+          default: "IOM, NEMA, SEMA, Red Cross: Displacement Tracking Matrix, Round XIV Jan 2017"
+        data:
+          type: json
+          description: The needs data
+          default: {"test": 1}
+        update:
+          type: string
+          description: The update frequency of this data
+          default: Unknown / Irregular

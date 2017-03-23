@@ -1,6 +1,6 @@
 import ast
 import pandas as pd
-from flask import Flask, jsonify  # request
+from flask import Flask, jsonify, request
 from flasgger import Swagger
 from flasgger.utils import swag_from
 
@@ -83,13 +83,16 @@ def get_funding_categories(country):
     return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=result, update=constants.UPDATE_FREQUENCY[3])
 
 
-# Helper function for FTS funding endpoints
 def get_funding_by_fts_dimension(country, fts_dimension):
+    """
+    Helper function for FTS funding endpoints.
+    Returns whether data retrieval was successful (or http errorcode if not), and the resulting json data (or error message if not).
+    """
     country = country.strip().capitalize()
     fts_donors_file = 'fts-{}.csv'.format(fts_dimension)
     success, result = api_utils.safely_load_data(fts_donors_file, '{} funding'.format(fts_dimension), country)
     if not success:
-        return result, 501
+        return 501, result
     result.drop(constants.COUNTRY_COL, axis=1, inplace=True)
     return success, result.to_dict(orient='list')
 
@@ -99,7 +102,7 @@ def get_funding_by_fts_dimension(country, fts_dimension):
 def get_funding_donors(country):
     country = country.strip().capitalize()
     success, result = get_funding_by_fts_dimension(country, 'donors')
-    if not success:
+    if not success or success == 501:
         return result, 501
     return jsonify(country=country, source=constants.DATA_SOURCES['FTS'], data=result, update=constants.UPDATE_FREQUENCY[2])
 
@@ -109,7 +112,7 @@ def get_funding_donors(country):
 def get_funding_clusters(country):
     country = country.strip().capitalize()
     success, result = get_funding_by_fts_dimension(country, 'clusters')
-    if not success:
+    if not success or success == 501:
         return result, 501
     return jsonify(country=country, source=constants.DATA_SOURCES['FTS'], data=result, update=constants.UPDATE_FREQUENCY[2])
 
@@ -119,7 +122,7 @@ def get_funding_clusters(country):
 def get_funding_recipients(country):
     country = country.strip().capitalize()
     success, result = get_funding_by_fts_dimension(country, 'recipients')
-    if not success:
+    if not success or success == 501:
         return result, 501
     return jsonify(country=country, source=constants.DATA_SOURCES['FTS'], data=result, update=constants.UPDATE_FREQUENCY[2])
 
@@ -174,6 +177,63 @@ def get_needs_regions(country):
     data['dates'] = dates
     data['values'] = values
     return jsonify(country=country, source=constants.DATA_SOURCES['ORS'], data=data, update=constants.UPDATE_FREQUENCY[-1])
+
+
+def get_needs_assessment_by_type(country='Nigeria', state='Borno', dtm_assessment_type='baseline'):
+    """
+    Helper function for DTM needs assessment endpoints.
+    Returns whether data retrieval was successful (or http errorcode if not), and the resulting json data (or error message if not).
+    """
+    country = country.strip().capitalize()
+    if country != 'Nigeria':
+        return 501, 'This country [{}] is currently not supported for site assessment data'.format(country)
+    dtm_file = constants.DTM_FILE_NAMES[dtm_assessment_type]
+    state_col = constants.DTM_STATE_COLS[dtm_assessment_type]
+    success, result = api_utils.safely_load_data(dtm_file, 'site assessment needs', state.upper(), state_col)
+    if not success:
+        return 501, result
+    result.drop(state_col, axis=1, inplace=True)
+    result = result.to_dict(orient='list')
+    return success, result
+
+
+@app.route('/needs/assessment/site/<string:country>/', methods=['GET'])
+@swag_from('api_configs/needs_assessment_site_by_state.yml')
+def get_needs_assessment_site(country):
+    # Note: this endpoint is only available for Nigeria for now, and assumes states in Nigeria
+    country = country.strip().capitalize()
+    dtm_assessment_type = 'site'
+    state = str(request.args.get('state', 'Borno')).strip().capitalize()
+    success, result = get_needs_assessment_by_type(country, state, dtm_assessment_type)
+    if not success or success == 501:
+        return result, 501
+    return jsonify(country=country, state=state, source=constants.DATA_SOURCES['DTM'], data=result, update=constants.UPDATE_FREQUENCY[3])
+
+
+@app.route('/needs/assessment/location/<string:country>/', methods=['GET'])
+@swag_from('api_configs/needs_assessment_location_by_state.yml')
+def get_needs_assessment_location(country):
+    # Note: this endpoint is only available for Nigeria for now, and assumes states in Nigeria
+    country = country.strip().capitalize()
+    dtm_assessment_type = 'location'
+    state = str(request.args.get('state', 'Borno')).strip().capitalize()
+    success, result = get_needs_assessment_by_type(country, state, dtm_assessment_type)
+    if not success or success == 501:
+        return result, 501
+    return jsonify(country=country, state=state, source=constants.DATA_SOURCES['DTM'], data=result, update=constants.UPDATE_FREQUENCY[3])
+
+
+@app.route('/needs/assessment/baseline/<string:country>/', methods=['GET'])
+@swag_from('api_configs/needs_assessment_baseline_by_state.yml')
+def get_needs_assessment_baseline(country):
+    # Note: this endpoint is only available for Nigeria for now, and assumes states in Nigeria
+    country = country.strip().capitalize()
+    dtm_assessment_type = 'baseline'
+    state = str(request.args.get('state', 'Borno')).strip().capitalize()
+    success, result = get_needs_assessment_by_type(country, state, dtm_assessment_type)
+    if not success or success == 501:
+        return result, 501
+    return jsonify(country=country, state=state, source=constants.DATA_SOURCES['DTM'], data=result, update=constants.UPDATE_FREQUENCY[3])
 
 
 @app.route('/test/<string:country>/', methods=['GET'])

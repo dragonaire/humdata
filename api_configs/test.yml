@@ -8,7 +8,12 @@ parameters:
     in: path
     type: string
     required: true
-    description: The country name (slugified, i.e. no special characters)
+    description: The country name (case-insensitive, slugified, i.e. no special characters)
+    enum:
+      - Chad
+      - Cameroon
+      - Niger
+      - Nigeria
 responses:
   501:
     description: No test data was found for this country

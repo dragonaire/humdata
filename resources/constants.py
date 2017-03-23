@@ -74,3 +74,18 @@ FTS_SCHEMAS = {
   'recipients': ['Recipient organization', 'Requirements US$', 'Funding US$', 'Pledges US$', 'Coverage %']
 }
 
+# DTM column names referring to states within a country
+DTM_STATE_COLS = {
+  'location': 'STATE',
+  'site': 'STATE',
+  'baseline': 'state_name'
+}
+
+# DTM file mapping (temporary for now)
+# TODO: make file names generic including DTM assessment type to remove the need for this config
+DTM_FILE_NAMES = {
+  'location': '14_DTM_NIgeria_Round_XIV_Dataset_of_Location_Assessment.csv',
+  'site': '06_DTM_Nigeria_Round_XIV_Dataset_of_Site_Assessment.csv',
+  'baseline': 'wards_05_DTM_Nigeria_Round_XIV_Dataset_of_Baseline_Assessment.csv'
+}
+
