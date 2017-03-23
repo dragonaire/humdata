@@ -31,3 +31,7 @@ responses:
           type: json
           description: The needs data
           default: {'Country': 'Chad', 'People In Need': 345000, 'People Targeted For Assistance': 233000}
+        update:
+          type: string
+          description: The update frequency of this data
+          default: Unknown / Irregular

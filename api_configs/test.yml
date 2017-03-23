@@ -29,3 +29,7 @@ responses:
           type: json
           description: The test data
           default: {"test": 1}
+        update:
+          type: string
+          description: The update frequency of this data
+          default: Unknown / Irregular

@@ -12,6 +12,9 @@ LATEST_DERIVED_RUN_DATE_FILE = os.path.join(LATEST_DERIVED_DATA_PATH, 'run_dates
 EXAMPLE_RAW_DATA_PATH = os.path.join(RAW_DATA_PATH, 'example')
 EXAMPLE_DERIVED_DATA_PATH = os.path.join(DERIVED_DATA_PATH, 'example')
 
+# Standard name for a column of country names
+COUNTRY_COL = 'Country'
+
 # Map of country codes to country names, ISO 3166-1 alpha-3 (similar to UNDP and NATO standards)
 # TODO: verify which country code standard the int'l dev community actually uses
 COUNTRY_CODES = {
@@ -26,7 +29,7 @@ DATA_SOURCES = {
   'HNO': 'UN OCHA Humanitarian Needs Overview Jan 2017',
   'DTM': 'IOM, NEMA, SEMA, Red Cross: Displacement Tracking Matrix, Round XIV Jan 2017',
   'ORS': 'Online Reporting System run by UN OCHA ROWCA (via HDX)',
-  'FTS': 'Financial Tracking Service run by UN OCHA (via HDX)'
+  'FTS': 'Financial Tracking Service run by UN OCHA'
 }
 
 # HDX website environments, in order of priority to pull data from (i.e. always try 'prod' first)
@@ -42,8 +45,8 @@ HDX_DATASETS = [
   #'lac-chad-basin-area'  # zipped shapefiles
 ]
 
-# HDX expected update frequency keywords (required for each Dataset)
-HDX_UPDATE_FREQUENCY = [
+# Based off of HDX expected update frequency keywords (required for each Dataset)
+UPDATE_FREQUENCY = [
   'Every day',
   'Every week',
   'Every two weeks',
@@ -51,7 +54,8 @@ HDX_UPDATE_FREQUENCY = [
   'Every three months',
   'Every six months',
   'Every year',
-  'Never'
+  'Never',
+  'Unknown / Irregular'
 ]
 
 # FTS sub-directory (e.g. under data/raw/latest)

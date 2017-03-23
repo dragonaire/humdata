@@ -29,3 +29,7 @@ responses:
           type: json
           description: The funding data
           default: {'Country': 'Chad', 'Requirement 2016': 98205277, 'Funded 2016': 54276412, 'Percent Funded 2016': 0.55000000000000004, 'Requirement 2017': 121261684, 'Tagged For Refugee Response': 16723548.0}
+        update:
+          type: string
+          description: The update frequency of this data
+          default: Unknown / Irregular

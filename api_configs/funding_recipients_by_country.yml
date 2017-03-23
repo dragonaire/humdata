@@ -1,0 +1,226 @@
+Get funding data by recipients for a country
+Call this endpoint to get the funding data by recipients for a given country
+---
+tags:
+  - Lake Chad Basin
+parameters:
+  - name: country
+    in: path
+    type: string
+    required: true
+    description: The country name (slugified, i.e. no special characters)
+responses:
+  501:
+    description: No recipient funding data was found for this country
+  200:
+    description: The latest recipient funding data for the given country
+    schema:
+      id: funding_recipients
+      properties:
+        country:
+          type: string
+          description: The country name
+          default: Chad
+        source:
+          type: string
+          description: The data source
+          default: Financial Tracking Service run by UN OCHA
+        data:
+          type: json
+          description: The funding data by recipient
+          default: {
+            "Coverage %": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              4.7,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0.2,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1.3,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Funding US$": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              261506,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              10672,
+              0,
+              0,
+              0,
+              0,
+              0,
+              2124552,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Pledges US$": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Recipient organization": [
+              "ACF - France",
+              "Action pour la Protection de la Santé, de l'Environnement et la Lutte contre la Pénurie Alimentaire",
+              "Agence Humanitaire Africaine",
+              "Agency for Technical Cooperation and Development",
+              "Alliance for International Medical Action",
+              "Association des Jeunes Arc-en-ciel pour la Stabilité Sociale en Afrique",
+              "Association des volontaire de lutte anti-mine",
+              "CARE International",
+              "Catholic Relief Services",
+              "Centre d'Appui aux Initiatives de Développement Local",
+              "Cercle Humanitaire d'Appui aux Initiatives Locales de Développement",
+              "Christian Outreach Relief and Development",
+              "Cooperazione Internazionale - COOPI",
+              "Food & Agriculture Organization of the United Nations",
+              "French Red Cross",
+              "Halt Death Stalker",
+              "Handicap International",
+              "Help-Tchad",
+              "INTERSOS Humanitarian Aid Organization",
+              "Initiative Humanitaire pour le Développement Local",
+              "International Aid Services",
+              "International Medical Corps UK",
+              "International Organization for Migration",
+              "International Rescue Committee",
+              "Office for the Coordination of Humanitarian Affairs",
+              "Oxfam Intermon",
+              "Première Urgence - Aide Médicale Internationale",
+              "Secours Islamique France",
+              "TEARFUND",
+              "United Nations Children's Fund",
+              "United Nations High Commissioner for Refugees",
+              "United Nations Humanitarian Air Service",
+              "United Nations Population Fund",
+              "World Food Programme",
+              "World Health Organization",
+              "World Vision Chad"
+            ],
+            "Requirements US$": [
+              12452472,
+              656584,
+              5173254,
+              5670532,
+              2410706,
+              425538,
+              251750,
+              16156366,
+              1407851,
+              316900,
+              1292919,
+              1467857,
+              5553585,
+              26100600,
+              1935000,
+              455640,
+              320000,
+              6350000,
+              572500,
+              886420,
+              800000,
+              417870,
+              8239000,
+              1706381,
+              5053721,
+              33301480,
+              5629693,
+              1064650,
+              1351209,
+              57274208,
+              162845308,
+              15329264,
+              7231152,
+              178993698,
+              12296055,
+              7218100
+            ]
+          }
+        update:
+          type: string
+          description: The update frequency of this data
+          default: Unknown / Irregular

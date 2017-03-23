@@ -97,3 +97,7 @@ responses:
             }
           }
         }
+        update:
+          type: string
+          description: The update frequency of this data
+          default: Unknown / Irregular

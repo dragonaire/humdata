@@ -13,16 +13,15 @@ def safely_load_data(data_file, data_description, country_filter=None):
         result = pd.read_csv('/'.join([constants.EXAMPLE_DERIVED_DATA_PATH, data_file]), encoding='utf-8')
         success = True
         if result.empty:
-            result = 'Error: No %s data was found for this country (empty file)' % data_description
+            result = 'Error: No {} data was found for this country (empty file)'.format(data_description)
             success = False
         elif country_filter:
-            # TODO: make sure that derived data sets all have uniform "Country" header for country
-            result = result.loc[result['Country'] == country_filter]
+            result = result.loc[result[constants.COUNTRY_COL] == country_filter]
             if result.empty:
-                result = 'Error: No %s data was found for this country (empty file)' % data_description
+                result = 'Error: No {} data was found for this country (empty file)'.format(data_description)
                 success = False
     except Exception as e:
-        result = 'Error: No %s data was found for this country (%s)' % (data_description, e)
+        result = 'Error: No {} data was found for this country ({})'.format(data_description, e)
         success = False
 
     if success:

@@ -67,9 +67,61 @@ def get_funding_totals(country):
     success, result = api_utils.safely_load_data('hno_funding_2016_2017.csv', 'funding', country)
     if not success:
         return result, 501
-    result = result.where((pd.notnull(result)), None)
     result = result.iloc[0].to_dict()
-    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=result)
+    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=result, update=constants.UPDATE_FREQUENCY[3])
+
+
+@app.route('/funding/categories/<string:country>/', methods=['GET'])
+@swag_from('api_configs/funding_categories_by_country.yml')
+def get_funding_categories(country):
+    country = country.strip().capitalize()
+    hno_funding_file = 'hno_funding_%s_2017.csv' % country.lower()
+    success, result = api_utils.safely_load_data(hno_funding_file, 'category funding')
+    if not success:
+        return result, 501
+    result = result.to_dict(orient='list')
+    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=result, update=constants.UPDATE_FREQUENCY[3])
+
+
+# Helper function for FTS funding endpoints
+def get_funding_by_fts_dimension(country, fts_dimension):
+    country = country.strip().capitalize()
+    fts_donors_file = 'fts-{}.csv'.format(fts_dimension)
+    success, result = api_utils.safely_load_data(fts_donors_file, '{} funding'.format(fts_dimension), country)
+    if not success:
+        return result, 501
+    result.drop(constants.COUNTRY_COL, axis=1, inplace=True)
+    return success, result.to_dict(orient='list')
+
+
+@app.route('/funding/donors/<string:country>/', methods=['GET'])
+@swag_from('api_configs/funding_donors_by_country.yml')
+def get_funding_donors(country):
+    country = country.strip().capitalize()
+    success, result = get_funding_by_fts_dimension(country, 'donors')
+    if not success:
+        return result, 501
+    return jsonify(country=country, source=constants.DATA_SOURCES['FTS'], data=result, update=constants.UPDATE_FREQUENCY[2])
+
+
+@app.route('/funding/clusters/<string:country>/', methods=['GET'])
+@swag_from('api_configs/funding_clusters_by_country.yml')
+def get_funding_clusters(country):
+    country = country.strip().capitalize()
+    success, result = get_funding_by_fts_dimension(country, 'clusters')
+    if not success:
+        return result, 501
+    return jsonify(country=country, source=constants.DATA_SOURCES['FTS'], data=result, update=constants.UPDATE_FREQUENCY[2])
+
+
+@app.route('/funding/recipients/<string:country>/', methods=['GET'])
+@swag_from('api_configs/funding_recipients_by_country.yml')
+def get_funding_recipients(country):
+    country = country.strip().capitalize()
+    success, result = get_funding_by_fts_dimension(country, 'recipients')
+    if not success:
+        return result, 501
+    return jsonify(country=country, source=constants.DATA_SOURCES['FTS'], data=result, update=constants.UPDATE_FREQUENCY[2])
 
 
 @app.route('/needs/totals/<string:country>/', methods=['GET'])
@@ -95,20 +147,7 @@ def get_needs_totals(country):
         data_keys.append('DTM')
 
     sources = [constants.DATA_SOURCES[data_key] for data_key in data_keys]
-    return jsonify(country=country, source=sources, data=result)
-
-
-@app.route('/funding/categories/<string:country>/', methods=['GET'])
-@swag_from('api_configs/funding_categories_by_country.yml')
-def get_funding_categories(country):
-    country = country.strip().capitalize()
-    hno_funding_file = 'hno_funding_%s_2017.csv' % country.lower()
-    success, result = api_utils.safely_load_data(hno_funding_file, 'category funding')
-    if not success:
-        return result, 501
-    result = result.where((pd.notnull(result)), None)
-    result = result.to_dict(orient='list')
-    return jsonify(country=country, source=constants.DATA_SOURCES['HNO'], data=result)
+    return jsonify(country=country, source=sources, data=result, update=constants.UPDATE_FREQUENCY[3])
 
 
 @app.route('/needs/regions/<string:country>/', methods=['GET'])
@@ -118,7 +157,6 @@ def get_needs_regions(country):
     success, result = api_utils.safely_load_data('lcb_displaced_2017.csv', 'regional needs', country)
     if not success:
         return result, 501
-    result = result.where((pd.notnull(result)), None)
     result['PeriodDate'] = pd.to_datetime(result['Period'])
     result.sort_values(by=['ReportedLocation', 'PeriodDate'], inplace=True)
     dates = result['Period'].unique().tolist()
@@ -135,7 +173,7 @@ def get_needs_regions(country):
     data = {}
     data['dates'] = dates
     data['values'] = values
-    return jsonify(country=country, source=constants.DATA_SOURCES['ORS'], data=data)
+    return jsonify(country=country, source=constants.DATA_SOURCES['ORS'], data=data, update=constants.UPDATE_FREQUENCY[-1])
 
 
 @app.route('/test/<string:country>/', methods=['GET'])
@@ -145,8 +183,9 @@ def test(country):
     success, result = api_utils.safely_load_data('test.csv', 'test')
     if not success:
         return result, 501
-    return jsonify(country=country, source='test', data=result.to_dict())
+    return jsonify(country=country, source='test', data=result.to_dict(), update=constants.UPDATE_FREQUENCY[-1])
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=80, host='0.0.0.0')
+    #app.run(debug=True, port=80, host='0.0.0.0')
+    app.run(debug=True)

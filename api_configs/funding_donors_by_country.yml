@@ -1,0 +1,51 @@
+Get funding data by donors for a country
+Call this endpoint to get the funding data by donors for a given country
+---
+tags:
+  - Lake Chad Basin
+parameters:
+  - name: country
+    in: path
+    type: string
+    required: true
+    description: The country name (slugified, i.e. no special characters)
+responses:
+  501:
+    description: No donor funding data was found for this country
+  200:
+    description: The latest donor funding data for the given country
+    schema:
+      id: funding_donors
+      properties:
+        country:
+          type: string
+          description: The country name
+          default: Chad
+        source:
+          type: string
+          description: The data source
+          default: Financial Tracking Service run by UN OCHA
+        data:
+          type: json
+          description: The funding data by donor
+          default: {
+            "Donor organization": [
+              "European Commission's Humanitarian Aid and Civil Protection Department",
+              "Malta, Government of",
+              "Private (individuals & organizations)"
+            ],
+            "Funding US$": [
+              261506,
+              10672,
+              2124552
+            ],
+            "Pledges US$": [
+              0,
+              0,
+              0
+            ]
+          }
+        update:
+          type: string
+          description: The update frequency of this data
+          default: Unknown / Irregular
