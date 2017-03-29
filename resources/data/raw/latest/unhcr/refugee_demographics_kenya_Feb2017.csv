@@ -1,0 +1,12 @@
+#{"source_key": "UNHCR", "source_url": "https://data2.unhcr.org/en/documents/details/54246", "source_date": 2017-02-17, "extract_date": 2017-03-28}
+Age,Gender,Percentage of Refugees and Asylum Seekers
+"0-4",Female,0.074
+"0-4",Male,0.077
+"5-11",Female,0.108
+"5-11",Male,0.116
+"12-17",Female,0.082
+"12-17",Male,0.100
+"18-59",Female,0.215
+"18-59",Male,0.203
+"60+",Female,0.014
+"60+",Male,0.012

@@ -1,0 +1,51 @@
+#{"source_key": "UNHCR", "source_url": "http://reporting.unhcr.org/node/2537", "source_date": 2017-02-01, "extract_date": 2017-03-28}
+Sector,Subsector,Refugee,Stateless,Total
+Favorable Protection Environment,Law and policy,132522,112903,245425
+Favorable Protection Environment,Administrative institutions and practice,216648,0,216648
+Favorable Protection Environment,Legal remedies and legal assistance,1902844,0,1902844
+Favorable Protection Environment,Access to territory,571622,0,571622
+Favorable Protection Environment,Public attitudes towards persons of concern,519482,0,519482
+Favorable Protection Environment,Subtotal,3343118,112903,3456021
+Fair Protection Processes and Documentation,Reception conditions,1930660,0,1930660
+Fair Protection Processes and Documentation,Identification of statelessness,0,136769,136769
+Fair Protection Processes and Documentation,Registration and profiling,5542678,0,5542678
+Fair Protection Processes and Documentation,Status determination,2987492,0,2987492
+Fair Protection Processes and Documentation,Individual documentation,609491,0,609491
+Fair Protection Processes and Documentation,Civil status documentation,604497,106169,710665
+Fair Protection Processes and Documentation,Subtotal,11674817,242937,11917755
+Security from Violence and Exploitation,Protection from crime,11456409,0,11456409
+Security from Violence and Exploitation,SGBV prevention and response,5224122,0,5224122
+Security from Violence and Exploitation,Non-arbitrary detention,539310,0,539310
+Security from Violence and Exploitation,Child protection,5994554,0,5994554
+Security from Violence and Exploitation,Subtotal,23214395,0,23214395
+Basic Needs and Essential Services,Health,22894561,0,22894561
+Basic Needs and Essential Services,Reproductive health and HIV/Aids response,5135069,0,5135069
+Basic Needs and Essential Services,Nutrition,3378762,0,3378762
+Basic Needs and Essential Services,Water,6955926,0,6955926
+Basic Needs and Essential Services,Sanitation and hygiene,9207587,0,9207587
+Basic Needs and Essential Services,Shelter and infrastructure,12666441,0,12666441
+Basic Needs and Essential Services,Energy,5664603,0,5664603
+Basic Needs and Essential Services,Basic and domestic and hygiene items,17993959,0,17993959
+Basic Needs and Essential Services,Services for persons with specific needs,3969348,0,3969348
+Basic Needs and Essential Services,Education,25611034,0,25611034
+Basic Needs and Essential Services,Subtotal,113477290,0,113477290
+Community Empowerment and Self Reliance,Community mobilization,3018257,0,3018257
+Community Empowerment and Self Reliance,Co-existence with local communities,5646486,0,5646486
+Community Empowerment and Self Reliance,Natural resources and shared environment,1677399,0,1677399
+Community Empowerment and Self Reliance,Self-reliance and livelihoods,12280118,0,12280118
+Community Empowerment and Self Reliance,Subtotal,22622259,0,22622259
+Durable Solutions,Voluntary return,23869835,0,23869835
+Durable Solutions,Integration,634254,0,634254
+Durable Solutions,Resettlement,2191834,0,2191834
+Durable Solutions,Greater reduction of statelessness,0,417337,417337
+Durable Solutions,Subtotal,26695923,417337,27113260
+"Leadership, Coordination and Partnerships",Coordination and partnerships,214716,79669,294385
+"Leadership, Coordination and Partnerships",Camp management and coordination,1533340,0,1533340
+"Leadership, Coordination and Partnerships",Donor relations,244323,0,244323
+"Leadership, Coordination and Partnerships",Subtotal,1992380,79669,2072048
+Logistics and Operations Support,Supply chain and logistics,5533868,0,5533868
+Logistics and Operations Support,Operations management coordination and support,4966134,0,4966134
+Logistics and Operations Support,Subtotal,10500002,0,10500002
+Totals,2017 Revised Budget,213520184,852845,214373030
+Totals,Increase / Decrease,779756,-2379,777377
+Totals,2017 Current Budget,214299940,850467,215150407
