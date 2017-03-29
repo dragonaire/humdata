@@ -1,4 +1,5 @@
 import os.path
+import json
 import pandas as pd
 from datetime import date
 from distutils import dir_util
@@ -46,7 +47,7 @@ def getDataset(dataset_name):
 
     print('Extract metadata from dataset:')
     #print(dataset.get_dataset_date())  # This doesn't always exist, optional? what is guaranteed?
-    print(dataset.get_expected_update_frequency())  # This should b guaranteed, see c`constants.py`
+    print(dataset.get_expected_update_frequency())  # This should be guaranteed, see `constants.py`
     print(dataset.get_location())
     print(dataset.get_tags())
 
@@ -55,22 +56,37 @@ def getDataset(dataset_name):
     print(len(resources))
 
     print('Done downloading this dataset')
-    return dataset, resources
+    return dataset
 
 
-def downloadResources(resources, download_path=constants.RAW_DATA_PATH):
+def downloadResources(dataset, download_path=constants.RAW_DATA_PATH, current_date_str=date.today().isoformat()):
     """
-    Given a list of HDX Resources, download its Resource files and load them as pandas dataframes.
+    Given an HDX Dataset with a list of HDX Resources, download its Resource files and load them as pandas dataframes.
     Return a dictionary of Resource filenames and their corresponding loaded pandas dataframes.
     Note: this assumes all resources are csv files, and calls the function loadResourceFromPath().
     """
+    resources = dataset.resources
     print('Load %d resources' % len(resources))
+
+    # Construct metadata for each resource
+    metadata = {}
+    metadata['source_date'] = 'Unknown'  # HDX does not appear to surface latest update date
+    metadata['extract_date'] = current_date_str
+    metadata['update_frequency'] = dataset.get_expected_update_frequency()
+    metadata['source_key'] = 'HDX'
 
     resource_dfs = {}
     for resource in resources:
         resource_url, resource_path = resource.download(download_path)
         print('Resource URL %s downloaded to %s' % (resource_url, resource_path))
+        metadata['source_url'] = resource_url
         resource_filename = os.path.basename(resource_path)
+        # Rewrite file, prepending metadata as the first line
+        with open(resource_path, 'r') as data_file:
+            with open('temp_{}'.format(resource_filename), 'w') as metadata_file:
+                metadata_file.write('#{}\n'.format(json.dumps(metadata)))
+                metadata_file.write(data_file.read())
+        os.rename('temp_{}'.format(resource_filename), resource_path)
         resource_dfs[resource_filename] = loadResourceFromPath(resource_path)
 
     print('Done downloading this list of resources')
@@ -84,7 +100,8 @@ def loadResourceFromPath(resource_path):
     """
 
     print('Load Resource path...')
-    res = pd.read_csv(resource_path, encoding='utf-8')
+    # Specify header row to skip first metadata row
+    res = pd.read_csv(resource_path, encoding='utf-8', header=1)  
 
     # Drop the first row which is always HXL metadata from HDX
     res.drop(0, inplace=True)
@@ -229,9 +246,9 @@ def run():
     for dataset_name in constants.HDX_DATASETS:
         resource_list = None
         try:
-            dataset, resource_list = getDataset(dataset_name)
+            dataset = getDataset(dataset_name)
             datasets[dataset_name] = dataset
-            resource_dfs = downloadResources(resource_list, download_path)
+            resource_dfs = downloadResources(dataset, download_path, current_date_str)
             resources[dataset_name] = resource_dfs
             num_resources = num_resources + len(resource_dfs)
             if not is_new_data and len(resource_dfs):
