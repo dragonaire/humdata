@@ -58,6 +58,9 @@ UPDATE_FREQUENCY = [
   'Unknown / Irregular'
 ]
 
+# UNHCR sub-directory (e.g. under data/raw/latest)
+UNHCR_DIR = 'unhcr'
+
 # FTS sub-directory (e.g. under data/raw/latest)
 FTS_DIR = 'fts'
 
